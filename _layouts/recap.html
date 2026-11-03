@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | The Archive</title>
+  <style>
+    body {
+      margin: 0;
+      background: #E8DDC8;
+      color: #30251D;
+      font-family: Georgia, serif;
+      line-height: 1.7;
+    }
+
+    header {
+      background: #30251D;
+      color: #E8DDC8;
+      padding: 24px;
+      text-align: center;
+    }
+
+    header a {
+      color: #E8DDC8;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 50px auto;
+      padding: 40px;
+      background: #F4EDE0;
+      border: 1px solid #806747;
+      box-sizing: border-box;
+    }
+
+    .date {
+      color: #806747;
+      font-size: 0.95rem;
+    }
+
+    .campaign {
+      font-style: italic;
+      color: #59634B;
+    }
+
+    .content {
+      margin-top: 30px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #49392D;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin: 20px 12px;
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="/archive.html">THE ARCHIVE</a>
+  </header>
+
+  <main>
+    <h1>{{ page.title }}</h1>
+
+    {% if page.date %}
+      <p class="date">{{ page.date | date: "%B %d, %Y" }}</p>
+    {% endif %}
+
+    {% if page.campaign %}
+      <p class="campaign">{{ page.campaign }}</p>
+    {% endif %}
+
+    <div class="content">
+      {{ content }}
+    </div>
+  </main>
+
+  <footer>
+    The Archive
+  </footer>
+
+</body>
+</html>

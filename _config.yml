@@ -1,0 +1,6 @@
+title: "The Archive"
+description: "A curated repository of history, factions, characters, and adventures."
+url: "https://realgeekfi.github.io"
+baseurl: ""
+markdown: kramdown
+permalink: pretty

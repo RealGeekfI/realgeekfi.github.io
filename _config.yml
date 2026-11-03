@@ -4,3 +4,10 @@ url: "https://realgeekfi.github.io"
 baseurl: ""
 markdown: kramdown
 permalink: pretty
+
+defaults:
+  - scope:
+      path: "archive/recaps"
+      type: "pages"
+    values:
+      layout: "recap"

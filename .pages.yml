@@ -8,7 +8,7 @@ content:
     label: Session Recaps
     type: collection
     path: archive/recaps
-    format: md
+    format: yaml-frontmatter
     filename: "{year}-{month}-{day}-{primary}.md"
     fields:
       - name: title
@@ -31,7 +31,7 @@ content:
     label: World History
     type: collection
     path: archive/history
-    format: md
+    format: yaml-frontmatter
     filename: "{primary}.md"
     fields:
       - name: title
@@ -47,7 +47,7 @@ content:
     label: Factions & Orders
     type: collection
     path: archive/factions
-    format: md
+    format: yaml-frontmatter
     filename: "{primary}.md"
     fields:
       - name: title
@@ -63,7 +63,7 @@ content:
     label: Characters
     type: collection
     path: archive/characters
-    format: md
+    format: yaml-frontmatter
     filename: "{primary}.md"
     fields:
       - name: name
@@ -79,7 +79,7 @@ content:
     label: Campaigns
     type: collection
     path: archive/campaigns
-    format: md
+    format: yaml-frontmatter
     filename: "{primary}.md"
     fields:
       - name: title

@@ -1,1 +1,253 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The Archive</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Georgia, serif;
+            color: #e8d9b5;
+            background:
+                linear-gradient(rgba(15, 12, 10, 0.78),
+                                rgba(15, 12, 10, 0.9)),
+                url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23")
+                center/cover fixed;
+        }
+
+        /* Navigation */
+
+        nav {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 12, 10, 0.85);
+            border-bottom: 1px solid #705b3e;
+        }
+
+        nav a {
+            color: #d7bd8b;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        /* Archive heading */
+
+        .heading {
+            text-align: center;
+            padding: 55px 20px 35px;
+        }
+
+        .heading h1 {
+            font-size: 48px;
+            letter-spacing: 7px;
+            color: #d7bd8b;
+            text-shadow: 2px 3px 8px black;
+        }
+
+        .heading p {
+            margin-top: 15px;
+            font-size: 17px;
+            font-style: italic;
+            color: #c2ae88;
+        }
+
+        /* Door layout */
+
+        .doors {
+            max-width: 1000px;
+            margin: 30px auto 70px;
+            padding: 20px;
+
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+        }
+
+        /* Individual doors */
+
+        .door {
+            height: 360px;
+            position: relative;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-decoration: none;
+            text-align: center;
+
+            background:
+                linear-gradient(rgba(30, 17, 10, 0.2),
+                                rgba(30, 17, 10, 0.55)),
+                repeating-linear-gradient(
+                    90deg,
+                    #382115 0px,
+                    #543522 12px,
+                    #3a2417 24px,
+                    #69442a 38px
+                );
+
+            border: 9px solid #21150e;
+            outline: 2px solid #927347;
+            outline-offset: -16px;
+
+            box-shadow:
+                0 12px 25px rgba(0,0,0,0.7),
+                inset 0 0 30px black;
+
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+        .door:hover {
+            transform: scale(1.04);
+            filter: brightness(1.25);
+        }
+
+        /* Door details */
+
+        .door::before {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #c5a45e;
+            top: 50%;
+            right: 30px;
+            box-shadow: 0 0 8px #d4a64c;
+        }
+
+        .door-content {
+            padding: 20px;
+            background: rgba(15, 10, 7, 0.7);
+            border: 1px solid #a88a56;
+            width: 75%;
+        }
+
+        .door h2 {
+            color: #e4c995;
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+
+        .door p {
+            color: #d2c2a3;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: rgba(15, 12, 10, 0.85);
+            border-top: 1px solid #705b3e;
+            color: #a99778;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 650px) {
+            .doors {
+                grid-template-columns: 1fr;
+                max-width: 420px;
+            }
+
+            .heading h1 {
+                font-size: 34px;
+            }
+
+            .door {
+                height: 300px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html">← Return Home</a>
+        <span>Personal Archive</span>
+    </nav>
+
+    <section class="heading">
+
+        <h1>THE ARCHIVE</h1>
+
+        <p>
+            "Not all knowledge is meant to be remembered.
+            Not all history is meant to be known."
+        </p>
+
+    </section>
+
+    <section class="doors">
+
+        <a href="archive/history.html" class="door">
+            <div class="door-content">
+                <h2>World History</h2>
+                <p>
+                    Kingdoms, ancient civilizations,
+                    forgotten histories and the world itself.
+                </p>
+            </div>
+        </a>
+
+        <a href="archive/factions.html" class="door">
+            <div class="door-content">
+                <h2>Factions & Orders</h2>
+                <p>
+                    Organizations, political powers,
+                    secret societies and rival factions.
+                </p>
+            </div>
+        </a>
+
+        <a href="archive/characters.html" class="door">
+            <div class="door-content">
+                <h2>Characters</h2>
+                <p>
+                    Heroes, villains, important figures
+                    and the people who shape history.
+                </p>
+            </div>
+        </a>
+
+        <a href="archive/campaigns.html" class="door">
+            <div class="door-content">
+                <h2>Campaigns & Adventures</h2>
+                <p>
+                    Stories, encounters, adventures
+                    and the events of the realm.
+                </p>
+            </div>
+        </a>
+
+    </section>
+
+    <footer>
+        <p>THE ARCHIVE | All records preserved, or so it is claimed.</p>
+    </footer>
+
+</body>
+</html>
+

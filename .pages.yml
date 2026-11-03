@@ -1,0 +1,91 @@
+
+media:
+  input: assets/uploads
+  output: /assets/uploads
+
+content:
+  - name: session_recaps
+    label: Session Recaps
+    type: collection
+    path: archive/recaps
+    format: md
+    filename: "{year}-{month}-{day}-{primary}.md"
+    fields:
+      - name: title
+        label: Session Title
+        type: string
+        required: true
+      - name: date
+        label: Session Date
+        type: date
+        required: true
+      - name: campaign
+        label: Campaign
+        type: string
+      - name: body
+        label: Recap
+        type: rich-text
+        required: true
+
+  - name: world_history
+    label: World History
+    type: collection
+    path: archive/history
+    format: md
+    filename: "{primary}.md"
+    fields:
+      - name: title
+        label: Entry Title
+        type: string
+        required: true
+      - name: body
+        label: Historical Record
+        type: rich-text
+        required: true
+
+  - name: factions
+    label: Factions & Orders
+    type: collection
+    path: archive/factions
+    format: md
+    filename: "{primary}.md"
+    fields:
+      - name: title
+        label: Organization Name
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: rich-text
+        required: true
+
+  - name: characters
+    label: Characters
+    type: collection
+    path: archive/characters
+    format: md
+    filename: "{primary}.md"
+    fields:
+      - name: name
+        label: Character Name
+        type: string
+        required: true
+      - name: description
+        label: Biography
+        type: rich-text
+        required: true
+
+  - name: campaigns
+    label: Campaigns
+    type: collection
+    path: archive/campaigns
+    format: md
+    filename: "{primary}.md"
+    fields:
+      - name: title
+        label: Campaign Name
+        type: string
+        required: true
+      - name: description
+        label: Campaign Description
+        type: rich-text

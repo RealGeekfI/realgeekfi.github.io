@@ -146,20 +146,31 @@
       background: var(--sage);
     }
     
-    .hero-button {
-      display: inline-block;
-      background-color: #806747;
-      color: #F4EDE0;
-      padding: 12px 24px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
+    .hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
 
-    .hero-button:hover {
-      background-color: #59634B;
-    }
+.hero-buttons .button,
+.hero-buttons .hero-button {
+  margin-top: 0;
+}
+
+.hero-button {
+  display: inline-block;
+  background-color: var(--bronze);
+  color: var(--paper);
+  padding: 11px 23px;
+  border: 1px solid var(--bronze);
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.hero-button:hover {
+  background-color: var(--sage);
+}
     /* General sections */
 
     .container {
@@ -363,9 +374,17 @@
           creativity, and storytelling.
         </p>
 
-        <a href="about.html" class="button">
-          Get to Know Me
-        </a>
+        <div class="hero-buttons">
+
+  <a href="about.html" class="button">
+    Get to Know Me
+  </a>
+
+  <a href="resume.html" class="hero-button">
+    View My Résumé →
+  </a>
+
+</div>
       </div>
 
       <img

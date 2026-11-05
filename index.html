@@ -7,7 +7,7 @@
 
   <title>Gabe Carter | Personal Portfolio</title>
 
-  <meta name="description" content="Explore Gabe Carter's academic journey, professional development, interests in Human Resources, and creative projects.">
+  <meta name="description" content="Explore Gabe Carter's academic journey, professional experience, interests in Human Resources, and creative projects.">
 
   <style>
     :root {
@@ -46,15 +46,12 @@
     header {
       background: var(--walnut);
       color: var(--parchment);
-      padding: 18px 7%;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      padding: 18px 5%;
       border-bottom: 2px solid var(--bronze);
     }
 
     nav {
-      max-width: 1150px;
+      max-width: 1200px;
       margin: auto;
       display: flex;
       justify-content: space-between;
@@ -66,17 +63,18 @@
       font-size: 1.35rem;
       font-weight: bold;
       letter-spacing: 1px;
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
-      gap: 25px;
+      gap: 20px;
       list-style: none;
       flex-wrap: wrap;
     }
 
     .nav-links a {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: color 0.2s;
     }
 
@@ -84,12 +82,16 @@
       color: #C7AD83;
     }
 
-    /* General layout */
+    /* Hero */
 
-    .container {
+    .hero {
       max-width: 1100px;
       margin: auto;
-      padding: 75px 25px;
+      padding: 90px 25px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      align-items: center;
+      gap: 55px;
     }
 
     .eyebrow {
@@ -100,42 +102,16 @@
       font-weight: bold;
     }
 
-    h1, h2, h3 {
-      line-height: 1.25;
-    }
-
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 18px;
-    }
-
-    .section-intro {
-      max-width: 720px;
-      margin-bottom: 35px;
-      color: var(--leather);
-    }
-
-    /* Hero */
-
-    .hero {
-      max-width: 1100px;
-      margin: auto;
-      padding: 95px 25px;
-      display: grid;
-      grid-template-columns: 1.4fr 0.8fr;
-      align-items: center;
-      gap: 55px;
-    }
-
     .hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-size: clamp(2.7rem, 5vw, 4rem);
+      line-height: 1.15;
       margin: 12px 0;
     }
 
     .hero h2 {
+      color: var(--sage);
       font-size: 1.5rem;
       font-weight: normal;
-      color: var(--sage);
       margin-bottom: 18px;
     }
 
@@ -147,7 +123,7 @@
 
     .hero-image {
       width: 100%;
-      max-width: 340px;
+      max-width: 330px;
       height: 390px;
       object-fit: cover;
       object-position: center 25%;
@@ -171,9 +147,15 @@
       background: var(--sage);
     }
 
-    /* About section */
+    /* General sections */
 
-    .about {
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 70px 25px;
+    }
+
+    .about-section {
       background: var(--paper);
       border-top: 1px solid #C8B99F;
       border-bottom: 1px solid #C8B99F;
@@ -183,11 +165,18 @@
       max-width: 850px;
     }
 
-    /* HR section */
-
-    .hr-section {
-      background: var(--parchment);
+    h2 {
+      font-size: 2rem;
+      line-height: 1.3;
+      margin: 10px 0 18px;
     }
+
+    .section-intro {
+      max-width: 750px;
+      color: var(--leather);
+    }
+
+    /* Portfolio cards */
 
     .card-grid {
       display: grid;
@@ -197,6 +186,7 @@
     }
 
     .card {
+      display: block;
       background: var(--paper);
       padding: 28px;
       border: 1px solid #C8B99F;
@@ -211,31 +201,25 @@
 
     .card h3 {
       font-size: 1.3rem;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .card p {
       color: var(--leather);
     }
 
-    .card ul {
-      margin: 12px 0 0 20px;
-      color: var(--leather);
-    }
-
     .card-link {
       display: inline-block;
-      margin-top: 18px;
+      margin-top: 16px;
       color: var(--sage);
       font-weight: bold;
     }
 
-    /* Archive section */
+    /* Archive */
 
     .archive-section {
       background: var(--paper);
       border-top: 1px solid #C8B99F;
-      border-bottom: 1px solid #C8B99F;
     }
 
     .archive-panel {
@@ -244,10 +228,11 @@
       padding: 38px;
       border: 2px solid var(--bronze);
       text-align: center;
+      margin-top: 30px;
     }
 
     .archive-panel h3 {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       margin-bottom: 12px;
     }
 
@@ -281,24 +266,22 @@
 
     /* Mobile */
 
-    @media (max-width: 700px) {
-      header {
-        position: relative;
-      }
-
+    @media (max-width: 800px) {
       nav {
         flex-direction: column;
       }
 
       .nav-links {
         justify-content: center;
-        gap: 12px 20px;
+        gap: 12px 18px;
       }
+    }
 
+    @media (max-width: 650px) {
       .hero {
         grid-template-columns: 1fr;
         text-align: center;
-        padding-top: 60px;
+        padding: 60px 22px;
         gap: 35px;
       }
 
@@ -332,12 +315,15 @@
 
   <header>
     <nav>
-      <a href="#home" class="logo">GABE CARTER</a>
+      <a href="index.html" class="logo">GABE CARTER</a>
 
       <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#hr">Human Resources</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="development.html">Development</a></li>
+        <li><a href="interests.html">HR Interests</a></li>
         <li><a href="archive.html">The Archive</a></li>
       </ul>
     </nav>
@@ -347,9 +333,12 @@
 
     <!-- Hero -->
 
-    <section class="hero" id="home">
+    <section class="hero">
+
       <div>
-        <span class="eyebrow">Welcome to my personal portfolio</span>
+        <span class="eyebrow">
+          Welcome to my personal portfolio
+        </span>
 
         <h1>Gabe Carter</h1>
 
@@ -360,7 +349,9 @@
           creativity, and storytelling.
         </p>
 
-        <a href="#about" class="button">Get to Know Me</a>
+        <a href="about.html" class="button">
+          Get to Know Me
+        </a>
       </div>
 
       <img
@@ -368,31 +359,37 @@
         alt="Gabe Carter"
         class="hero-image"
       >
+
     </section>
 
-    <!-- About Me -->
+    <!-- About Me Preview -->
 
-    <section class="about" id="about">
+    <section class="about-section">
       <div class="container about-content">
+
         <span class="eyebrow">A little about myself</span>
 
         <h2>About Me</h2>
 
         <p>
-          Welcome! I'm pursuing a future in Human Resources
-          while developing my interests in leadership,
-          employee development, and workplace culture.
-          This website serves as a space to document my
-          academic journey, showcase my professional
-          experiences, and share the creative projects
-          I've developed along the way.
+          I'm a student at Oakland University pursuing
+          a path in Human Resources Management. My academic
+          journey and professional experiences have helped
+          develop my interests in leadership, employee
+          development, workplace relationships, and
+          organizational success.
         </p>
+
+        <a href="about.html" class="card-link">
+          Learn More About Me →
+        </a>
+
       </div>
     </section>
 
-    <!-- Human Resources -->
+    <!-- Professional Portfolio -->
 
-    <section class="hr-section" id="hr">
+    <section>
       <div class="container">
 
         <span class="eyebrow">My professional journey</span>
@@ -401,212 +398,71 @@
 
         <p class="section-intro">
           My academic and professional journey as I work
-          toward a career in Human Resources. Through higher
-          education and hands-on workplace experience,
-          I'm developing an understanding of people,
-          organizations, and effective leadership.
+          toward a career in Human Resources. Explore my
+          education, workplace experience, professional
+          development, and areas of interest.
         </p>
 
         <div class="card-grid">
 
-          <!-- Education -->
-
-          <article class="card">
+          <a href="education.html" class="card">
             <h3>Education</h3>
 
             <p>
-              My academic background, degrees, coursework,
-              and continued learning as I build a foundation
-              in Human Resources.
+              Explore my academic background, degrees,
+              coursework, and continued education.
             </p>
 
-            <ul>
-              <li>Oakland University</li>
-              <li>Associate Degree in Social Sciences</li>
-              <li>Associate Degree in General Education</li>
-            </ul>
-
-            <a href="#education" class="card-link">
+            <span class="card-link">
               Explore Education →
-            </a>
-          </article>
+            </span>
+          </a>
 
-          <!-- Professional Development -->
+          <a href="experience.html" class="card">
+            <h3>Professional Experience</h3>
 
-          <article class="card">
+            <p>
+              Learn about my workplace experience,
+              leadership background, and responsibilities.
+            </p>
+
+            <span class="card-link">
+              Explore Experience →
+            </span>
+          </a>
+
+          <a href="development.html" class="card">
             <h3>Professional Development</h3>
 
             <p>
-              My leadership experience, employee training,
-              workplace skills, and professional goals as
-              I prepare for a career in Human Resources.
+              Discover the skills, training, projects,
+              and professional goals that shape my growth.
             </p>
 
-            <a href="#experience" class="card-link">
-              Explore Experience →
-            </a>
-          </article>
+            <span class="card-link">
+              Explore Development →
+            </span>
+          </a>
 
-          <!-- HR Interests -->
-
-          <article class="card">
+          <a href="interests.html" class="card">
             <h3>HR Interests</h3>
 
             <p>
-              Exploring topics such as employee relations,
-              organizational behavior, employee engagement,
-              workplace culture, and talent development.
+              Explore my interests in employee relations,
+              talent development, workplace culture,
+              and organizational behavior.
             </p>
 
-            <a href="#interests" class="card-link">
-              Explore My Interests →
-            </a>
-          </article>
-
-          <!-- Future Development -->
-
-          <article class="card">
-            <h3>Looking Ahead</h3>
-
-            <p>
-              Continuing to develop my knowledge, strengthen
-              my professional skills, and prepare for future
-              opportunities within Human Resources.
-            </p>
-
-            <a href="#interests" class="card-link">
-              Learn More →
-            </a>
-          </article>
+            <span class="card-link">
+              Explore HR Interests →
+            </span>
+          </a>
 
         </div>
       </div>
     </section>
 
-    <!-- Education Details -->
-
-    <section class="about" id="education">
-      <div class="container">
-        <span class="eyebrow">Academic background</span>
-
-        <h2>My Education</h2>
-
-        <p>
-          <strong>Oakland University</strong><br>
-          Pre-Human Resources Management<br>
-          Fall 2026 – Present
-        </p>
-
-        <br>
-
-        <p>
-          <strong>Macomb Community College</strong><br>
-          Associate Degree in Social Sciences · 2026
-        </p>
-
-        <br>
-
-        <p>
-          <strong>Macomb Community College</strong><br>
-          Associate Degree in General Education · 2026
-        </p>
-      </div>
-    </section>
-
-    <!-- Experience Details -->
-
-    <section class="hr-section" id="experience">
-      <div class="container">
-        <span class="eyebrow">Workplace experience</span>
-
-        <h2>Professional Experience</h2>
-
-        <div class="card-grid">
-
-          <article class="card">
-            <h3>Kroger</h3>
-
-            <p><strong>ClickList Associate</strong></p>
-
-            <p>
-              Through my current role, I've developed
-              operational knowledge, supported departmental
-              activities, and assisted with task-specific
-              training for new employees.
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Five Below</h3>
-
-            <p><strong>Former Shift Lead</strong></p>
-
-            <p>
-              My leadership experience included supervising
-              associates, coordinating daily operations,
-              training employees, delegating responsibilities,
-              and helping resolve customer and workplace
-              concerns.
-            </p>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- HR Interests -->
-
-    <section class="about" id="interests">
-      <div class="container">
-        <span class="eyebrow">Areas of exploration</span>
-
-        <h2>Professional Interests</h2>
-
-        <p class="section-intro">
-          I'm interested in how Human Resources can
-          contribute to employee development, positive
-          workplace relationships, and organizational success.
-        </p>
-
-        <div class="card-grid">
-
-          <article class="card">
-            <h3>Employee Relations</h3>
-            <p>
-              Understanding workplace relationships,
-              communication, and employee support.
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Training & Development</h3>
-            <p>
-              Helping individuals develop their skills
-              and reach their professional potential.
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Talent Acquisition</h3>
-            <p>
-              Exploring recruitment, hiring, and
-              the process of bringing talent into organizations.
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Workplace Culture</h3>
-            <p>
-              Learning how leadership, engagement, and
-              organizational values shape the workplace.
-            </p>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Worldbuilding and The Archive -->
+    <!-- The Archive -->
 
     <section class="archive-section">
       <div class="container">
@@ -620,11 +476,10 @@
           creating fantasy worlds, developing characters,
           constructing intricate histories, and telling
           stories through Dungeons & Dragons.
-          What started as a hobby has grown into an
-          extensive creative project of its own.
         </p>
 
         <div class="archive-panel">
+
           <h3>The Archive</h3>
 
           <p>
@@ -637,8 +492,8 @@
           <a href="archive.html" class="archive-button">
             Enter the Archive →
           </a>
-        </div>
 
+        </div>
       </div>
     </section>
 

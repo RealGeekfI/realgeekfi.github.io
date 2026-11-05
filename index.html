@@ -1,468 +1,654 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Gabe Carter | Personal Portfolio</title>
+  <title>Gabe Carter | Personal Portfolio</title>
 
-    <style>
+  <meta name="description" content="Explore Gabe Carter's academic journey, professional development, interests in Human Resources, and creative projects.">
 
-        /* GENERAL SETTINGS */
+  <style>
+    :root {
+      --walnut: #30251D;
+      --parchment: #E8DDC8;
+      --bronze: #806747;
+      --sage: #59634B;
+      --paper: #F4EDE0;
+      --leather: #49392D;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        body {
-            font-family: Georgia, serif;
-            background-color: #E8DDC8;
-            color: #49392D;
-            line-height: 1.7;
-        }
+    body {
+      background: var(--parchment);
+      color: var(--walnut);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.7;
+    }
 
-        /* NAVIGATION */
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        header {
-            background-color: #30251D;
-            color: #F4EDE0;
-            padding: 20px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #806747;
-        }
+    /* Navigation */
 
-        header h2 {
-            font-size: 23px;
-            letter-spacing: 1px;
-        }
+    header {
+      background: var(--walnut);
+      color: var(--parchment);
+      padding: 18px 7%;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 2px solid var(--bronze);
+    }
 
-        nav a {
-            color: #E8DDC8;
-            text-decoration: none;
-            margin-left: 28px;
-            font-size: 15px;
-            transition: color 0.3s;
-        }
+    nav {
+      max-width: 1150px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
 
-        nav a:hover {
-            color: #C5A66A;
-        }
+    .logo {
+      font-size: 1.35rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
 
-        /* HERO SECTION */
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
 
-        .hero {
-            text-align: center;
-            padding: 115px 20px;
-            background-color: #D9CBB2;
-            border-bottom: 1px solid #C5B497;
-        }
+    .nav-links a {
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
 
-        .hero .eyebrow {
-            color: #806747;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 13px;
-            margin-bottom: 18px;
-        }
+    .nav-links a:hover {
+      color: #C7AD83;
+    }
 
-        .hero h1 {
-            font-size: 52px;
-            color: #30251D;
-            margin-bottom: 18px;
-        }
+    /* General layout */
 
-        .hero p {
-            font-size: 19px;
-            color: #625343;
-            max-width: 680px;
-            margin: auto;
-        }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 75px 25px;
+    }
 
-        .hero-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 28px;
-            background-color: #806747;
-            color: #F4EDE0;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
+    .eyebrow {
+      color: var(--bronze);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
 
-        .hero-button:hover {
-            background-color: #59634B;
-        }
+    h1, h2, h3 {
+      line-height: 1.25;
+    }
 
-        /* GENERAL CONTENT SECTIONS */
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
 
-        .section {
-            max-width: 1100px;
-            margin: auto;
-            padding: 75px 30px;
-        }
+    .section-intro {
+      max-width: 720px;
+      margin-bottom: 35px;
+      color: var(--leather);
+    }
 
-        .section h2 {
-            font-size: 32px;
-            color: #30251D;
-            margin-bottom: 15px;
-        }
+    /* Hero */
 
-        .section-intro {
-            max-width: 750px;
-            color: #625343;
-        }
+    .hero {
+      max-width: 1100px;
+      margin: auto;
+      padding: 95px 25px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      align-items: center;
+      gap: 55px;
+    }
 
-        .section-label {
-            color: #806747;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 12px;
-            margin-bottom: 8px;
-        }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin: 12px 0;
+    }
 
-        /* CARDS */
+    .hero h2 {
+      font-size: 1.5rem;
+      font-weight: normal;
+      color: var(--sage);
+      margin-bottom: 18px;
+    }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            margin-top: 32px;
-        }
+    .hero p {
+      max-width: 600px;
+      color: var(--leather);
+      font-size: 1.08rem;
+    }
 
-        .card {
-            background-color: #F4EDE0;
-            padding: 32px;
-            border: 1px solid #C5B497;
-            border-radius: 5px;
-            box-shadow: 0 4px 12px rgba(48, 37, 29, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    .hero-image {
+      width: 100%;
+      max-width: 340px;
+      height: 390px;
+      object-fit: cover;
+      object-position: center 25%;
+      border: 7px solid var(--paper);
+      outline: 1px solid var(--bronze);
+      box-shadow: 0 8px 25px rgba(48, 37, 29, 0.15);
+      justify-self: center;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(48, 37, 29, 0.14);
-        }
+    .button {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 11px 23px;
+      background: var(--walnut);
+      color: var(--paper);
+      border: 1px solid var(--bronze);
+      transition: background 0.2s;
+    }
 
-        .card h3 {
-            font-size: 21px;
-            color: #59634B;
-            margin-bottom: 12px;
-        }
+    .button:hover {
+      background: var(--sage);
+    }
 
-        .card p {
-            color: #625343;
-        }
+    /* About section */
 
-        /* ABOUT SECTION */
+    .about {
+      background: var(--paper);
+      border-top: 1px solid #C8B99F;
+      border-bottom: 1px solid #C8B99F;
+    }
 
-        #about {
-            border-bottom: 1px solid #C5B497;
-        }
+    .about-content {
+      max-width: 850px;
+    }
 
-        /* HR SECTION */
+    /* HR section */
 
-        #hr {
-            border-bottom: 1px solid #C5B497;
-        }
+    .hr-section {
+      background: var(--parchment);
+    }
 
-        /* D&D SECTION */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      margin-top: 35px;
+    }
 
-        .dnd-section {
-            background-color: #30251D;
-            color: #E8DDC8;
-            padding: 75px 30px;
-        }
+    .card {
+      background: var(--paper);
+      padding: 28px;
+      border: 1px solid #C8B99F;
+      border-top: 4px solid var(--bronze);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
 
-        .dnd-content {
-            max-width: 1100px;
-            margin: auto;
-        }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(48, 37, 29, 0.10);
+    }
 
-        .dnd-section .section-label {
-            color: #C5A66A;
-        }
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
 
-        .dnd-section h2 {
-            color: #E8DDC8;
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
+    .card p {
+      color: var(--leather);
+    }
 
-        .dnd-section .section-intro {
-            color: #D0C0A5;
-        }
+    .card ul {
+      margin: 12px 0 0 20px;
+      color: var(--leather);
+    }
 
-        .dnd-card {
-            background-color: #49392D;
-            border: 1px solid #806747;
-            padding: 32px;
-            border-radius: 5px;
-        }
+    .card-link {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--sage);
+      font-weight: bold;
+    }
 
-        .dnd-card h3 {
-            color: #D7BD8B;
-            font-size: 22px;
-            margin-bottom: 12px;
-        }
+    /* Archive section */
 
-        .dnd-card p {
-            color: #D0C0A5;
-        }
+    .archive-section {
+      background: var(--paper);
+      border-top: 1px solid #C8B99F;
+      border-bottom: 1px solid #C8B99F;
+    }
 
-        .dnd-card a {
-            display: inline-block;
-            margin-top: 20px;
-            color: #D7BD8B;
-            text-decoration: none;
-            font-weight: bold;
-            border-bottom: 1px solid #806747;
-            padding-bottom: 3px;
-        }
+    .archive-panel {
+      background: var(--walnut);
+      color: var(--parchment);
+      padding: 38px;
+      border: 2px solid var(--bronze);
+      text-align: center;
+    }
 
-        .dnd-card a:hover {
-            color: white;
-        }
+    .archive-panel h3 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
 
-        /* FOOTER */
+    .archive-panel p {
+      max-width: 650px;
+      margin: auto;
+      color: #E0D3BD;
+    }
 
-        footer {
-            text-align: center;
-            background-color: #241B16;
-            color: #C5B497;
-            padding: 28px;
-            border-top: 2px solid #806747;
-            font-size: 14px;
-        }
+    .archive-button {
+      display: inline-block;
+      margin-top: 22px;
+      padding: 11px 25px;
+      border: 1px solid #C7AD83;
+      color: var(--parchment);
+    }
 
-        /* MOBILE DESIGN */
+    .archive-button:hover {
+      background: var(--sage);
+    }
 
-        @media (max-width: 650px) {
+    /* Footer */
 
-            header {
-                flex-direction: column;
-                gap: 15px;
-                padding: 20px;
-            }
+    footer {
+      background: var(--walnut);
+      color: var(--parchment);
+      text-align: center;
+      padding: 25px;
+      font-size: 0.9rem;
+    }
 
-            nav {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
+    /* Mobile */
 
-            nav a {
-                margin: 0;
-            }
+    @media (max-width: 700px) {
+      header {
+        position: relative;
+      }
 
-            .hero {
-                padding: 85px 20px;
-            }
+      nav {
+        flex-direction: column;
+      }
 
-            .hero h1 {
-                font-size: 38px;
-            }
+      .nav-links {
+        justify-content: center;
+        gap: 12px 20px;
+      }
 
-            .hero p {
-                font-size: 17px;
-            }
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 60px;
+        gap: 35px;
+      }
 
-            .section,
-            .dnd-section {
-                padding: 55px 22px;
-            }
+      .hero-image {
+        max-width: 270px;
+        height: 320px;
+      }
 
-        }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
 
-    </style>
+      .container {
+        padding: 55px 22px;
+      }
 
+      h2 {
+        font-size: 1.7rem;
+      }
+
+      .archive-panel {
+        padding: 28px 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
+  <!-- Navigation -->
 
-    <header>
+  <header>
+    <nav>
+      <a href="#home" class="logo">GABE CARTER</a>
 
-        <h2>Gabe Carter</h2>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#hr">Human Resources</a></li>
+        <li><a href="archive.html">The Archive</a></li>
+      </ul>
+    </nav>
+  </header>
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#hr">Human Resources</a>
-            <a href="archive.html">The Archive</a>
-        </nav>
+  <main>
 
-    </header>
-
-
-    <!-- HERO SECTION -->
+    <!-- Hero -->
 
     <section class="hero" id="home">
-
-        <p class="eyebrow">Welcome to my personal portfolio</p>
+      <div>
+        <span class="eyebrow">Welcome to my personal portfolio</span>
 
         <h1>Gabe Carter</h1>
 
+        <h2>Building a Future in Human Resources</h2>
+
         <p>
-            Exploring the intersection of people, leadership,
-            creativity, and storytelling.
+          Exploring the intersection of people, leadership,
+          creativity, and storytelling.
         </p>
 
-        <a href="#about" class="hero-button">
-            Get to Know Me
-        </a>
+        <a href="#about" class="button">Get to Know Me</a>
+      </div>
 
+      <img
+        src="images/profile.jpg"
+        alt="Gabe Carter"
+        class="hero-image"
+      >
     </section>
 
+    <!-- About Me -->
 
-    <!-- ABOUT ME -->
-
-    <section class="section" id="about">
-
-        <p class="section-label">A little about myself</p>
+    <section class="about" id="about">
+      <div class="container about-content">
+        <span class="eyebrow">A little about myself</span>
 
         <h2>About Me</h2>
 
-        <p class="section-intro">
-            Welcome! I'm building my future in Human Resources
-            while pursuing my interests in leadership, creativity,
-            and collaborative storytelling.
-
-            This website serves as a space to document my
-            professional development, showcase my interests,
-            and share the projects I've worked on along the way.
+        <p>
+          Welcome! I'm pursuing a future in Human Resources
+          while developing my interests in leadership,
+          employee development, and workplace culture.
+          This website serves as a space to document my
+          academic journey, showcase my professional
+          experiences, and share the creative projects
+          I've developed along the way.
         </p>
-
+      </div>
     </section>
 
+    <!-- Human Resources -->
 
-    <!-- HUMAN RESOURCES -->
+    <section class="hr-section" id="hr">
+      <div class="container">
 
-    <section class="section" id="hr">
-
-        <p class="section-label">Professional Journey</p>
+        <span class="eyebrow">My professional journey</span>
 
         <h2>Human Resources</h2>
 
         <p class="section-intro">
-            My academic and professional journey as I work toward
-            a career in Human Resources. Here, I share my education,
-            professional development, and growing understanding
-            of people and organizations.
+          My academic and professional journey as I work
+          toward a career in Human Resources. Through higher
+          education and hands-on workplace experience,
+          I'm developing an understanding of people,
+          organizations, and effective leadership.
         </p>
 
-        <div class="cards">
+        <div class="card-grid">
 
-            <div class="card">
+          <!-- Education -->
 
-                <h3>Education</h3>
+          <article class="card">
+            <h3>Education</h3>
 
-                <p>
-                    My academic background, coursework,
-                    areas of study, and continued learning
-                    as I develop my knowledge of Human Resources.
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <h3>Professional Development</h3>
-
-                <p>
-                    Skills, leadership experience, projects,
-                    and professional goals that are shaping
-                    my future career.
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <h3>HR Interests</h3>
-
-                <p>
-                    Exploring topics such as organizational
-                    behavior, employee engagement, leadership,
-                    workplace culture, and talent development.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- DUNGEONS & DRAGONS -->
-
-    <section class="dnd-section" id="dnd">
-
-        <div class="dnd-content">
-
-            <p class="section-label">Beyond the Professional</p>
-
-            <h2>Worldbuilding & Storytelling</h2>
-
-            <p class="section-intro">
-                Outside of my professional interests, I enjoy
-                creating fantasy worlds, developing characters,
-                constructing intricate histories, and telling
-                stories through Dungeons & Dragons.
-
-                What started as a hobby has become an extensive
-                creative project of its own.
+            <p>
+              My academic background, degrees, coursework,
+              and continued learning as I build a foundation
+              in Human Resources.
             </p>
 
-            <div class="cards">
+            <ul>
+              <li>Oakland University</li>
+              <li>Associate Degree in Social Sciences</li>
+              <li>Associate Degree in General Education</li>
+            </ul>
 
-                <div class="dnd-card">
+            <a href="#education" class="card-link">
+              Explore Education →
+            </a>
+          </article>
 
-                    <h3>The Archive</h3>
+          <!-- Professional Development -->
 
-                    <p>
-                        Enter a collection of histories, characters,
-                        factions, kingdoms, and adventures.
-                        Explore the worlds and stories I've created
-                        through Dungeons & Dragons.
-                    </p>
+          <article class="card">
+            <h3>Professional Development</h3>
 
-                    <a href="archive.html">
-                        Enter the Archive →
-                    </a>
+            <p>
+              My leadership experience, employee training,
+              workplace skills, and professional goals as
+              I prepare for a career in Human Resources.
+            </p>
 
-                </div>
+            <a href="#experience" class="card-link">
+              Explore Experience →
+            </a>
+          </article>
 
-            </div>
+          <!-- HR Interests -->
+
+          <article class="card">
+            <h3>HR Interests</h3>
+
+            <p>
+              Exploring topics such as employee relations,
+              organizational behavior, employee engagement,
+              workplace culture, and talent development.
+            </p>
+
+            <a href="#interests" class="card-link">
+              Explore My Interests →
+            </a>
+          </article>
+
+          <!-- Future Development -->
+
+          <article class="card">
+            <h3>Looking Ahead</h3>
+
+            <p>
+              Continuing to develop my knowledge, strengthen
+              my professional skills, and prepare for future
+              opportunities within Human Resources.
+            </p>
+
+            <a href="#interests" class="card-link">
+              Learn More →
+            </a>
+          </article>
 
         </div>
-
+      </div>
     </section>
 
+    <!-- Education Details -->
 
-    <!-- FOOTER -->
+    <section class="about" id="education">
+      <div class="container">
+        <span class="eyebrow">Academic background</span>
 
-    <footer>
+        <h2>My Education</h2>
 
         <p>
-            © 2026 Gabe Carter | Personal Portfolio
+          <strong>Oakland University</strong><br>
+          Pre-Human Resources Management<br>
+          Fall 2026 – Present
         </p>
 
-    </footer>
+        <br>
+
+        <p>
+          <strong>Macomb Community College</strong><br>
+          Associate Degree in Social Sciences · 2026
+        </p>
+
+        <br>
+
+        <p>
+          <strong>Macomb Community College</strong><br>
+          Associate Degree in General Education · 2026
+        </p>
+      </div>
+    </section>
+
+    <!-- Experience Details -->
+
+    <section class="hr-section" id="experience">
+      <div class="container">
+        <span class="eyebrow">Workplace experience</span>
+
+        <h2>Professional Experience</h2>
+
+        <div class="card-grid">
+
+          <article class="card">
+            <h3>Kroger</h3>
+
+            <p><strong>ClickList Associate</strong></p>
+
+            <p>
+              Through my current role, I've developed
+              operational knowledge, supported departmental
+              activities, and assisted with task-specific
+              training for new employees.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Five Below</h3>
+
+            <p><strong>Former Shift Lead</strong></p>
+
+            <p>
+              My leadership experience included supervising
+              associates, coordinating daily operations,
+              training employees, delegating responsibilities,
+              and helping resolve customer and workplace
+              concerns.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- HR Interests -->
+
+    <section class="about" id="interests">
+      <div class="container">
+        <span class="eyebrow">Areas of exploration</span>
+
+        <h2>Professional Interests</h2>
+
+        <p class="section-intro">
+          I'm interested in how Human Resources can
+          contribute to employee development, positive
+          workplace relationships, and organizational success.
+        </p>
+
+        <div class="card-grid">
+
+          <article class="card">
+            <h3>Employee Relations</h3>
+            <p>
+              Understanding workplace relationships,
+              communication, and employee support.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Training & Development</h3>
+            <p>
+              Helping individuals develop their skills
+              and reach their professional potential.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Talent Acquisition</h3>
+            <p>
+              Exploring recruitment, hiring, and
+              the process of bringing talent into organizations.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Workplace Culture</h3>
+            <p>
+              Learning how leadership, engagement, and
+              organizational values shape the workplace.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Worldbuilding and The Archive -->
+
+    <section class="archive-section">
+      <div class="container">
+
+        <span class="eyebrow">Beyond the professional</span>
+
+        <h2>Worldbuilding & Storytelling</h2>
+
+        <p class="section-intro">
+          Outside of my professional interests, I enjoy
+          creating fantasy worlds, developing characters,
+          constructing intricate histories, and telling
+          stories through Dungeons & Dragons.
+          What started as a hobby has grown into an
+          extensive creative project of its own.
+        </p>
+
+        <div class="archive-panel">
+          <h3>The Archive</h3>
+
+          <p>
+            Enter a collection of histories, characters,
+            factions, kingdoms, and adventures. Explore
+            the worlds and stories I've created through
+            Dungeons & Dragons.
+          </p>
+
+          <a href="archive.html" class="archive-button">
+            Enter the Archive →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+
+  <footer>
+    <p>© 2026 Gabe Carter | Personal Portfolio</p>
+  </footer>
 
 </body>
-
 </html>

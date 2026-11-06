@@ -582,230 +582,187 @@
 
     <script>
 
-        /* REGION INFORMATION */
+        
+/* REGION INFORMATION */
+
+const regions = {
+    vordaheim: {
+        name: "Vordaheim",
+        description: "A harsh volcanic land dominated by mountains, ash, and fire. Its settlements endure in the shadow of an unforgiving landscape.",
+        note: "Regional records and settlements to be documented."
+    },
+    ezamite: {
+        name: "Ezamite",
+        description: "A frozen expanse of perpetual winter. Its glaciers, snowfields, and isolated settlements make it one of the most inhospitable regions of the known world.",
+        note: "Regional records and settlements to be documented."
+    },
+    arqhea: {
+        name: "Arqhea",
+        description: "A land of striking red forests, rugged highlands, and imposing mountain ranges. Its geography separates it from the central territories.",
+        note: "Regional records and settlements to be documented."
+    },
+    cosmouras: {
+        name: "Cosmouras",
+        description: "A strange and distinctive land marked by unusual formations and waterways. Its geography sets it apart from the surrounding territories.",
+        note: "Regional records and settlements to be documented."
+    },
+    ayadale: {
+        name: "Ayadale",
+        description: "A vast central territory containing numerous fiefdoms, settlements, forests, and mountain ranges. It is one of the principal political regions of the known world.",
+        note: "Includes the fiefdoms of Ayadale, Kathos, Lynen, Cacia, Haldon, Audeau, and Deluro."
+    },
+    khar: {
+        name: "Khar",
+        description: "A vast desert territory characterized by arid plains, rocky borders, and scattered settlements.",
+        note: "Regional records and settlements to be documented."
+    },
+    giraduhl: {
+        name: "Gira Duhl",
+        description: "A mountainous territory dominated by rugged peaks and isolated settlements.",
+        note: "Regional records and settlements to be documented."
+    },
+    everantum: {
+        name: "The Everantum Wildlands",
+        description: "An expansive wilderness of dense forests, natural waterways, and largely untamed terrain.",
+        note: "Regional records and settlements to be documented."
+    },
+    kukhang: {
+        name: "Kukhang",
+        description: "A collection of eastern islands featuring dense forests, lakes, mountains, and coastal settlements.",
+        note: "Includes Kimju, Kimokami, Kikoshinga, and surrounding islands."
+    }
+};
+
+/* REGION SELECTION */
+
+const markers = document.querySelectorAll(".region-marker");
+const regionName = document.getElementById("regionName");
+const regionDescription = document.getElementById("regionDescription");
+const regionInstruction = document.getElementById("regionInstruction");
+
+markers.forEach(marker => {
+    marker.addEventListener("click", event => {
+        event.stopPropagation();
+
+        const region = regions[marker.dataset.region];
+        if (!region) return;
+
+        markers.forEach(item => item.classList.remove("active"));
+        marker.classList.add("active");
+
+        regionName.textContent = region.name;
+        regionDescription.textContent = region.description;
+        regionInstruction.textContent = region.note;
+    });
+});
+
+/* MAP NAVIGATION */
+
+const mapStage = document.getElementById("mapStage");
+const mapContent = document.getElementById("mapContent");
+
+let zoom = 1;
+let panX = 0;
+let panY = 0;
+
+let dragging = false;
+let startX = 0;
+let startY = 0;
+
+const MIN_ZOOM = 0.6;
+const MAX_ZOOM = 3;
+
+function updateMap() {
+    const stageWidth = mapStage.clientWidth;
+    const stageHeight = mapStage.clientHeight;
+
+    const mapWidth = mapContent.offsetWidth * zoom;
+    const mapHeight = mapContent.offsetHeight *
+        (mapContent.offsetHeight > 0
+            ? mapContent.querySelector("img").naturalHeight /
+              mapContent.querySelector("img").naturalWidth
+            : 1) * zoom;
+
+    const maxX = Math.max(0, (mapWidth - stageWidth) / 2);
+    const maxY = Math.max(0, (mapHeight - stageHeight) / 2);
 
-        const regions = {
+    panX = Math.max(-maxX, Math.min(maxX, panX));
+    panY = Math.max(-maxY, Math.min(maxY, panY));
 
-            vordaheim: {
-                name: "Vordaheim",
-                description:
-                    "A harsh volcanic land dominated by mountains, ash, and fire. Its settlements endure in the shadow of an unforgiving landscape.",
-                note: "Regional records and settlements to be documented."
-            },
+    mapContent.style.transform =
+        `translate(calc(-50% + ${panX}px),
+        calc(-50% + ${panY}px)) scale(${zoom})`;
+}
 
-            ezamite: {
-                name: "Ezamite",
-                description:
-                    "A frozen expanse of perpetual winter. Its glaciers, snowfields, and isolated settlements make it one of the most inhospitable regions of the known world.",
-                note: "Regional records and settlements to be documented."
-            },
+/* ZOOM BUTTONS */
 
-            arqhea: {
-                name: "Arqhea",
-                description:
-                    "A land of striking red forests, rugged highlands, and imposing mountain ranges. Its geography separates it from the central territories.",
-                note: "Regional records and settlements to be documented."
-            },
+document.getElementById("zoomIn").addEventListener("click", () => {
+    zoom = Math.min(zoom + 0.2, MAX_ZOOM);
+    updateMap();
+});
 
-            cosmouras: {
-                name: "Cosmouras",
-                description:
-                    "A strange and distinctive land marked by unusual formations and waterways. Its geography sets it apart from the surrounding territories.",
-                note: "Regional records and settlements to be documented."
-            },
+document.getElementById("zoomOut").addEventListener("click", () => {
+    zoom = Math.max(zoom - 0.2, MIN_ZOOM);
+    updateMap();
+});
 
-            ayadale: {
-                name: "Ayadale",
-                description:
-                    "A vast central territory containing numerous fiefdoms, settlements, forests, and mountain ranges. It is one of the principal political regions of the known world.",
-                note: "Includes the fiefdoms of Ayadale, Kathos, Lynen, Cacia, Haldon, Audeau, and Deluro."
-            },
+/* RESET MAP */
 
-            khar: {
-                name: "Khar",
-                description:
-                    "A vast desert territory characterized by arid plains, rocky borders, and scattered settlements.",
-                note: "Regional records and settlements to be documented."
-            },
+document.getElementById("resetMap").addEventListener("click", () => {
+    zoom = 1;
+    panX = 0;
+    panY = 0;
+    updateMap();
+});
 
-            giraduhl: {
-                name: "Gira Duhl",
-                description:
-                    "A mountainous territory dominated by rugged peaks and isolated settlements.",
-                note: "Regional records and settlements to be documented."
-            },
+/* DRAGGING */
 
-            everantum: {
-                name: "The Everantum Wildlands",
-                description:
-                    "An expansive wilderness of dense forests, natural waterways, and largely untamed terrain.",
-                note: "Regional records and settlements to be documented."
-            },
+mapStage.addEventListener("pointerdown", event => {
+    if (event.target.closest(".region-marker")) return;
 
-            kukhang: {
-                name: "Kukhang",
-                description:
-                    "A collection of eastern islands featuring dense forests, lakes, mountains, and coastal settlements.",
-                note: "Includes Kimju, Kimokami, Kikoshinga, and surrounding islands."
-            }
+    dragging = true;
 
-        };
+    startX = event.clientX - panX;
+    startY = event.clientY - panY;
 
+    mapStage.classList.add("dragging");
+    mapStage.setPointerCapture(event.pointerId);
+});
 
-        /* SELECTING REGIONS */
+mapStage.addEventListener("pointermove", event => {
+    if (!dragging) return;
 
-        const markers = document.querySelectorAll(".region-marker");
+    panX = event.clientX - startX;
+    panY = event.clientY - startY;
 
-        const regionName =
-            document.getElementById("regionName");
+    updateMap();
+});
 
-        const regionDescription =
-            document.getElementById("regionDescription");
+function stopDragging() {
+    dragging = false;
+    mapStage.classList.remove("dragging");
+}
 
-        const regionInstruction =
-            document.getElementById("regionInstruction");
+mapStage.addEventListener("pointerup", stopDragging);
+mapStage.addEventListener("pointercancel", stopDragging);
 
+/* MOUSE WHEEL ZOOM */
 
-        markers.forEach(marker => {
+mapStage.addEventListener("wheel", event => {
+    event.preventDefault();
 
-            marker.addEventListener("click", function(event) {
+    zoom = event.deltaY < 0
+        ? Math.min(zoom + 0.1, MAX_ZOOM)
+        : Math.max(zoom - 0.1, MIN_ZOOM);
 
-                event.stopPropagation();
+    updateMap();
+}, { passive: false });
 
-                const region = regions[this.dataset.region];
+/* INITIALIZE */
 
-                if (!region) return;
+window.addEventListener("resize", updateMap);
+updateMap();
 
-                markers.forEach(item =>
-                    item.classList.remove("active")
-                );
-
-                this.classList.add("active");
-
-                regionName.textContent = region.name;
-
-                regionDescription.textContent =
-                    region.description;
-
-                regionInstruction.textContent =
-                    region.note;
-
-            });
-
-        });
-
-
-        /* ZOOM AND PAN */
-
-        const mapStage =
-            document.getElementById("mapStage");
-
-        const mapContent =
-            document.getElementById("mapContent");
-
-        let zoom = 1;
-        let panX = 0;
-        let panY = 0;
-
-        let dragging = false;
-        let startX = 0;
-        let startY = 0;
-
-        function updateMap() {
-
-            mapContent.style.transform =
-                `translate(calc(-50% + ${panX}px),
-                calc(-50% + ${panY}px)) scale(${zoom})`;
-
-        }
-
-
-        /* ZOOM BUTTONS */
-
-        document.getElementById("zoomIn")
-            .addEventListener("click", () => {
-
-                zoom = Math.min(zoom + 0.2, 3);
-                updateMap();
-
-            });
-
-        document.getElementById("zoomOut")
-            .addEventListener("click", () => {
-
-                zoom = Math.max(zoom - 0.2, 0.6);
-                updateMap();
-
-            });
-
-
-        /* RESET MAP */
-
-        document.getElementById("resetMap")
-            .addEventListener("click", () => {
-
-                zoom = 1;
-                panX = 0;
-                panY = 0;
-
-                updateMap();
-
-            });
-
-
-        /* DRAGGING */
-
-        mapStage.addEventListener("pointerdown", event => {
-
-            if (event.target.closest(".region-marker")) return;
-
-            dragging = true;
-
-            startX = event.clientX - panX;
-            startY = event.clientY - panY;
-
-            mapStage.classList.add("dragging");
-            mapStage.setPointerCapture(event.pointerId);
-
-        });
-
-        mapStage.addEventListener("pointermove", event => {
-
-            if (!dragging) return;
-
-            panX = event.clientX - startX;
-            panY = event.clientY - startY;
-
-            updateMap();
-
-        });
-
-        function stopDragging() {
-
-            dragging = false;
-            mapStage.classList.remove("dragging");
-
-        }
-
-        mapStage.addEventListener("pointerup", stopDragging);
-        mapStage.addEventListener("pointercancel", stopDragging);
-
-
-        /* MOUSE WHEEL ZOOM */
-
-        mapStage.addEventListener("wheel", event => {
-
-            event.preventDefault();
-
-            if (event.deltaY < 0) {
-                zoom = Math.min(zoom + 0.1, 3);
-            } else {
-                zoom = Math.max(zoom - 0.1, 0.6);
-            }
-
-            updateMap();
-
-        }, { passive: false });
 
 
     </script>

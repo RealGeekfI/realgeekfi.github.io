@@ -97,9 +97,9 @@
 
         .archive-room {
             position: relative;
-            max-width: 1050px;
+            max-width: 1250px;
             margin: 50px auto 0;
-            padding: 45px;
+            padding: 55px;
 
             background:
                 repeating-linear-gradient(
@@ -123,7 +123,7 @@
        .doors {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 30px;
+    gap: 40px;
 }
 
         /* DOOR FRAME */
@@ -137,7 +137,7 @@
 
         .door-frame {
             position: relative;
-            height: 355px;
+            height: 420px;
             padding: 10px;
 
             background: linear-gradient(
@@ -273,8 +273,8 @@
             left: 50%;
             transform: translate(-50%, -50%);
 
-            width: 76px;
-            height: 76px;
+            width: 90px;
+            height: 90px;
 
             display: flex;
             justify-content: center;
@@ -286,7 +286,7 @@
             background: #302014;
             color: #d9bc80;
 
-            font-size: 30px;
+            font-size: 36px;
 
             box-shadow: 0 0 15px rgba(0,0,0,0.7);
 
@@ -368,13 +368,15 @@
         /* MOBILE */
 
       @media (max-width: 900px) {
+    .archive-room {
+        padding: 30px;
+    }
     .doors {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 700px) {
-
     .archive-room {
         padding: 20px;
     }
@@ -385,7 +387,7 @@
     }
 
     .door-frame {
-        height: 320px;
+        height: 350px;
     }
 
     .entrance {

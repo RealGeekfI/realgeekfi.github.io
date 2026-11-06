@@ -120,11 +120,11 @@
 
         /* DOOR GRID */
 
-        .doors {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 38px;
-        }
+       .doors {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+}
 
         /* DOOR FRAME */
 
@@ -367,29 +367,35 @@
 
         /* MOBILE */
 
-        @media (max-width: 700px) {
+      @media (max-width: 900px) {
+    .doors {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
 
-            .archive-room {
-                padding: 20px;
-            }
+@media (max-width: 700px) {
 
-            .doors {
-                grid-template-columns: 1fr;
-                gap: 28px;
-            }
+    .archive-room {
+        padding: 20px;
+    }
 
-            .door-frame {
-                height: 320px;
-            }
+    .doors {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
 
-            .entrance {
-                padding-top: 45px;
-            }
+    .door-frame {
+        height: 320px;
+    }
 
-            .entrance h1 {
-                letter-spacing: 4px;
-            }
-        }
+    .entrance {
+        padding-top: 45px;
+    }
+
+    .entrance h1 {
+        letter-spacing: 4px;
+    }
+}
 
         @media (prefers-reduced-motion: reduce) {
             *,
@@ -468,6 +474,72 @@
                     </div>
 
                 </a>
+                
+                <!-- THE ATLAS -->
+
+<a href="archive/atlas.html" class="door-link">
+
+    <div class="door-frame">
+
+        <div class="door-leaves">
+
+            <div class="door-leaf left">
+                <span class="hinge"></span>
+                <span class="hinge second"></span>
+                <span class="handle"></span>
+            </div>
+
+            <div class="door-leaf right">
+                <span class="hinge second"></span>
+                <span class="hinge"></span>
+                <span class="handle"></span>
+            </div>
+
+        </div>
+
+        <div class="emblem">✧</div>
+
+        <div class="door-plaque">
+            <h2>The Atlas</h2>
+            <p>Explore the lands of the known world</p>
+        </div>
+
+    </div>
+
+</a>
+
+<!-- WORLD ENCYCLOPEDIA -->
+
+<a href="archive/encyclopedia.html" class="door-link">
+
+    <div class="door-frame">
+
+        <div class="door-leaves">
+
+            <div class="door-leaf left">
+                <span class="hinge"></span>
+                <span class="hinge second"></span>
+                <span class="handle"></span>
+            </div>
+
+            <div class="door-leaf right">
+                <span class="hinge second"></span>
+                <span class="hinge"></span>
+                <span class="handle"></span>
+            </div>
+
+        </div>
+
+        <div class="emblem">❖</div>
+
+        <div class="door-plaque">
+            <h2>World Encyclopedia</h2>
+            <p>The knowledge of the known world</p>
+        </div>
+
+    </div>
+
+</a>
 
 
                 <!-- FACTIONS -->

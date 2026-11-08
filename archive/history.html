@@ -1,1 +1,371 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>World History | The Archive</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top, #493522, #211912 75%);
+            color: #e5d5b5;
+            font-family: Georgia, serif;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #c6a875;
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: #f0dfbd;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+            font-weight: normal;
+        }
+
+        .subtitle {
+            color: #bda982;
+            letter-spacing: 2px;
+            font-size: 13px;
+        }
+
+        .divider {
+            width: 120px;
+            height: 1px;
+            background: #806747;
+            margin: 25px auto;
+        }
+
+        .intro {
+            max-width: 750px;
+            margin: 0 auto 45px;
+            text-align: center;
+            line-height: 1.8;
+            color: #d4c3a2;
+        }
+
+        .timeline-section {
+            background: rgba(20, 14, 10, 0.65);
+            border: 1px solid #806747;
+            padding: 35px;
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 25px;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #bda982;
+            font-size: 13px;
+            margin-bottom: 35px;
+        }
+
+        .year-display {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 8px;
+            color: #e8d3a7;
+        }
+
+        .era-display {
+            text-align: center;
+            color: #c6a875;
+            margin-bottom: 35px;
+            letter-spacing: 2px;
+            font-size: 14px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: #c6a875;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            color: #a99370;
+            font-size: 12px;
+        }
+
+        .ages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 45px;
+        }
+
+        .age-card {
+            border: 1px solid #806747;
+            padding: 22px 15px;
+            text-align: center;
+            background: rgba(128, 103, 71, 0.08);
+            transition: 0.2s ease;
+        }
+
+        .age-card.active {
+            background: rgba(198, 168, 117, 0.17);
+            border-color: #d9bc80;
+        }
+
+        .age-number {
+            color: #a99370;
+            font-size: 12px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .age-card h3 {
+            font-weight: normal;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .age-card p {
+            color: #bda982;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .events-section {
+            border: 1px solid #806747;
+            background: rgba(20, 14, 10, 0.65);
+            padding: 35px;
+            min-height: 180px;
+        }
+
+        .events-section h2 {
+            font-weight: normal;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .empty-events {
+            text-align: center;
+            color: #a99370;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 45px;
+            color: #806747;
+            font-size: 12px;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 25px 12px;
+            }
+
+            .timeline-section,
+            .events-section {
+                padding: 22px 16px;
+            }
+
+            .ages {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <a href="../archive.html" class="back-link">
+            ← Return to The Archive
+        </a>
+
+        <h1>WORLD HISTORY</h1>
+
+        <p class="subtitle">
+            A CHRONICLE OF THE KNOWN WORLD
+        </p>
+
+        <div class="divider"></div>
+    </header>
+
+    <div class="intro">
+        The history of the known world spans more than two centuries.
+        Explore the passage of time, from the earliest recorded years
+        of the Creation Era to the technological transformation of
+        the Arcanum Revolution.
+    </div>
+
+    <section class="timeline-section">
+
+        <h2 class="section-title">The Historical Timeline</h2>
+
+        <p class="section-subtitle">
+            Explore the ages and years of recorded history
+        </p>
+
+        <div class="year-display" id="yearDisplay">
+            213 S.C.
+        </div>
+
+        <div class="era-display" id="eraDisplay">
+            THE ARCANUM REVOLUTION
+        </div>
+
+        <input
+            type="range"
+            id="timelineSlider"
+            min="0"
+            max="213"
+            value="213"
+            step="1"
+        >
+
+        <div class="slider-labels">
+            <span>0 C.E.</span>
+            <span>100 C.E.</span>
+            <span>200 F.C.</span>
+            <span>213 S.C.</span>
+        </div>
+
+        <div class="ages">
+
+            <div class="age-card" id="creationCard">
+                <div class="age-number">AGE I</div>
+                <h3>The Creation Era</h3>
+                <p>0–100 C.E.</p>
+            </div>
+
+            <div class="age-card" id="ironCard">
+                <div class="age-number">AGE II</div>
+                <h3>The Age of Iron</h3>
+                <p>101–200 F.C.</p>
+            </div>
+
+            <div class="age-card active" id="arcanumCard">
+                <div class="age-number">AGE III</div>
+                <h3>The Arcanum Revolution</h3>
+                <p>201–213 S.C.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="events-section">
+
+        <h2>Historical Records</h2>
+
+        <div class="empty-events" id="eventDisplay">
+            Select a year on the timeline to explore its
+            recorded historical events.
+        </div>
+
+    </section>
+
+    <footer>
+        THE ARCHIVE · WORLD HISTORY
+    </footer>
+
+</div>
+
+<script>
+
+    const slider = document.getElementById("timelineSlider");
+
+    const yearDisplay = document.getElementById("yearDisplay");
+    const eraDisplay = document.getElementById("eraDisplay");
+
+    const eventDisplay = document.getElementById("eventDisplay");
+
+    const creationCard = document.getElementById("creationCard");
+    const ironCard = document.getElementById("ironCard");
+    const arcanumCard = document.getElementById("arcanumCard");
+
+    function updateTimeline() {
+
+        const year = Number(slider.value);
+
+        let date;
+        let era;
+
+        creationCard.classList.remove("active");
+        ironCard.classList.remove("active");
+        arcanumCard.classList.remove("active");
+
+        if (year <= 100) {
+
+            date = year + " C.E.";
+            era = "THE CREATION ERA";
+
+            creationCard.classList.add("active");
+
+        } else if (year <= 200) {
+
+            date = year + " F.C.";
+            era = "THE AGE OF IRON";
+
+            ironCard.classList.add("active");
+
+        } else {
+
+            date = year + " S.C.";
+            era = "THE ARCANUM REVOLUTION";
+
+            arcanumCard.classList.add("active");
+
+        }
+
+        yearDisplay.textContent = date;
+        eraDisplay.textContent = era;
+
+        eventDisplay.textContent =
+            "No historical records have been added for " + date + " yet.";
+
+    }
+
+    slider.addEventListener("input", updateTimeline);
+
+    updateTimeline();
+
+</script>
+
+</body>
+</html>
+

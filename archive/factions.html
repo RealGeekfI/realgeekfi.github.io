@@ -435,17 +435,46 @@ footer {
 
     <!-- POLITICAL NETWORK -->
 
-    <div class="network-heading">
+   
+<div class="network-heading">
 
-        <h2>THE POLITICAL LANDSCAPE</h2>
+    <h2>THE POLITICAL LANDSCAPE</h2>
 
-        <p>
-            Select an organization to examine its official archive dossier.
-        </p>
+    <p>
+        Select an organization to examine its official archive dossier.
+    </p>
+
+</div>
+
+<!-- INTERACTIVE NETWORK -->
+
+<div class="network-panel" id="networkPanel">
+
+    <div class="zoom-controls">
+
+        <button id="zoomIn" aria-label="Zoom in">+</button>
+
+        <button id="zoomOut" aria-label="Zoom out">−</button>
+
+        <button id="zoomReset" aria-label="Reset zoom">⟲</button>
 
     </div>
 
-    
+    <svg id="networkSvg"
+         viewBox="0 0 1000 650"
+         preserveAspectRatio="xMidYMid meet"
+         aria-label="Interactive organization relationship network">
+
+        <g id="networkLines"></g>
+
+        <g id="networkNodes"></g>
+
+    </svg>
+
+</div>
+
+
+<!-- NETWORK LEGEND -->
 
 <div class="network-legend">
 
@@ -466,55 +495,6 @@ footer {
 
 </div>
 
-
-    <svg id="networkSvg"
-         viewBox="0 0 1000 650"
-         preserveAspectRatio="xMidYMid meet"
-         aria-label="Interactive organization relationship network">
-
-        <g id="networkLines"></g>
-        <g id="networkNodes"></g>
-
-    </svg>
-
-</div>
-
-
-        <div class="network-placeholder">
-
-            <div class="symbol">✥</div>
-
-            <h3>The Political Network</h3>
-
-            <p>
-                The relationships and rivalries between the realm's
-                organizations will be mapped here.
-                Select an organization to explore its history,
-                leadership, objectives, and connections.
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="network-legend">
-
-        <div class="legend-item">
-            <span class="legend-dot"></span>
-            Organizations
-        </div>
-
-        <div class="legend-item">
-            <span class="legend-dot"></span>
-            Political Connections
-        </div>
-
-        <div class="legend-item">
-            <span class="legend-dot"></span>
-            Alliances & Rivalries
-        </div>
-
-    </div>
 
 </main>
 

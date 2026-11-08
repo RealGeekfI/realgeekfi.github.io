@@ -335,7 +335,27 @@ footer {
 
     </div>
 
-    <div class="network-panel" id="networkPanel">
+    
+<div class="network-panel" id="networkPanel">
+
+    <div class="zoom-controls">
+        <button id="zoomIn" aria-label="Zoom in">+</button>
+        <button id="zoomOut" aria-label="Zoom out">−</button>
+        <button id="zoomReset" aria-label="Reset zoom">⟲</button>
+    </div>
+
+    <svg id="networkSvg"
+         viewBox="0 0 1000 650"
+         preserveAspectRatio="xMidYMid meet"
+         aria-label="Interactive organization relationship network">
+
+        <g id="networkLines"></g>
+        <g id="networkNodes"></g>
+
+    </svg>
+
+</div>
+
 
         <div class="network-placeholder">
 

@@ -601,9 +601,383 @@ footer {
 </footer>
 
 
+
 <script>
 
-// CLOSE DOSSIER
+// ==========================================
+// TEMPORARY SAMPLE ORGANIZATIONS
+// ==========================================
+
+const organizations = [
+    {
+        id: "org1",
+        name: "Organization A",
+        symbol: "♜",
+        type: "Political Organization",
+        x: 500,
+        y: 120,
+        overview: "Temporary sample organization used to test the network.",
+        leadership: "Sample leadership structure.",
+        headquarters: "Sample headquarters.",
+        relationships: "Connected to Organizations B and C.",
+        history: "Temporary historical record."
+    },
+    {
+        id: "org2",
+        name: "Organization B",
+        symbol: "⚜",
+        type: "Military Organization",
+        x: 230,
+        y: 300,
+        overview: "Temporary sample organization used to test the network.",
+        leadership: "Sample leadership structure.",
+        headquarters: "Sample headquarters.",
+        relationships: "Connected to Organizations A and D.",
+        history: "Temporary historical record."
+    },
+    {
+        id: "org3",
+        name: "Organization C",
+        symbol: "✥",
+        type: "Political Organization",
+        x: 760,
+        y: 300,
+        overview: "Temporary sample organization used to test the network.",
+        leadership: "Sample leadership structure.",
+        headquarters: "Sample headquarters.",
+        relationships: "Connected to Organizations A and E.",
+        history: "Temporary historical record."
+    },
+    {
+        id: "org4",
+        name: "Organization D",
+        symbol: "✧",
+        type: "Secret Society",
+        x: 350,
+        y: 510,
+        overview: "Temporary sample organization used to test the network.",
+        leadership: "Sample leadership structure.",
+        headquarters: "Sample headquarters.",
+        relationships: "Connected to Organization B.",
+        history: "Temporary historical record."
+    },
+    {
+        id: "org5",
+        name: "Organization E",
+        symbol: "⚔",
+        type: "Revolutionary Movement",
+        x: 680,
+        y: 510,
+        overview: "Temporary sample organization used to test the network.",
+        leadership: "Sample leadership structure.",
+        headquarters: "Sample headquarters.",
+        relationships: "Connected to Organization C and F.",
+        history: "Temporary historical record."
+    },
+    {
+        id: "org6",
+        name: "Organization F",
+        symbol: "✦",
+        type: "Trade Organization",
+        x: 900,
+        y: 510,
+        overview: "Temporary sample organization used to test the network.",
+        leadership: "Sample leadership structure.",
+        headquarters: "Sample headquarters.",
+        relationships: "Connected to Organization E.",
+        history: "Temporary historical record."
+    }
+];
+
+
+// ==========================================
+// TEMPORARY SAMPLE RELATIONSHIPS
+// ==========================================
+
+const relationships = [
+    { from: "org1", to: "org2", type: "alliance" },
+    { from: "org1", to: "org3", type: "rivalry" },
+    { from: "org2", to: "org4", type: "affiliation" },
+    { from: "org3", to: "org5", type: "alliance" },
+    { from: "org5", to: "org6", type: "rivalry" }
+];
+
+
+// ==========================================
+// NETWORK ELEMENTS
+// ==========================================
+
+const svg = document.getElementById("networkSvg");
+const linesGroup = document.getElementById("networkLines");
+const nodesGroup = document.getElementById("networkNodes");
+
+const searchInput = document.getElementById("factionSearch");
+
+let draggedNode = null;
+let dragMoved = false;
+let selectedNode = null;
+let zoom = 1;
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+
+// ==========================================
+// DRAW RELATIONSHIP LINES
+// ==========================================
+
+function renderLines() {
+
+    linesGroup.innerHTML = "";
+
+    relationships.forEach(connection => {
+
+        const from = organizations.find(
+            org => org.id === connection.from
+        );
+
+        const to = organizations.find(
+            org => org.id === connection.to
+        );
+
+        const line = document.createElementNS(SVG_NS, "line");
+
+        line.setAttribute("x1", from.x);
+        line.setAttribute("y1", from.y);
+        line.setAttribute("x2", to.x);
+        line.setAttribute("y2", to.y);
+
+        line.classList.add(
+            "relationship-" + connection.type
+        );
+
+        linesGroup.appendChild(line);
+
+    });
+
+}
+
+
+// ==========================================
+// DRAW ORGANIZATION NODES
+// ==========================================
+
+function renderNodes() {
+
+    nodesGroup.innerHTML = "";
+
+    organizations.forEach(org => {
+
+        const group = document.createElementNS(SVG_NS, "g");
+
+        group.classList.add("network-node");
+        group.dataset.id = org.id;
+
+        group.setAttribute(
+            "transform",
+            `translate(${org.x}, ${org.y})`
+        );
+
+        const circle = document.createElementNS(SVG_NS, "circle");
+
+        circle.setAttribute("r", "43");
+
+        const symbol = document.createElementNS(SVG_NS, "text");
+
+        symbol.setAttribute("class", "node-symbol");
+        symbol.setAttribute("y", "9");
+        symbol.textContent = org.symbol;
+
+        const label = document.createElementNS(SVG_NS, "text");
+
+        label.setAttribute("class", "node-label");
+        label.setAttribute("y", "65");
+        label.textContent = org.name;
+
+        group.appendChild(circle);
+        group.appendChild(symbol);
+        group.appendChild(label);
+
+        group.addEventListener("pointerdown", event => {
+
+            draggedNode = org;
+            dragMoved = false;
+
+            group.setPointerCapture(event.pointerId);
+
+        });
+
+        group.addEventListener("pointermove", event => {
+
+            if (!draggedNode || draggedNode.id !== org.id) {
+                return;
+            }
+
+            const point = svg.createSVGPoint();
+
+            point.x = event.clientX;
+            point.y = event.clientY;
+
+            const position = point.matrixTransform(
+                svg.getScreenCTM().inverse()
+            );
+
+            if (
+                Math.abs(position.x - org.x) > 3 ||
+                Math.abs(position.y - org.y) > 3
+            ) {
+                dragMoved = true;
+            }
+
+            org.x = Math.max(55, Math.min(945, position.x));
+            org.y = Math.max(55, Math.min(560, position.y));
+
+            group.setAttribute(
+                "transform",
+                `translate(${org.x}, ${org.y})`
+            );
+
+            renderLines();
+
+        });
+
+        group.addEventListener("pointerup", () => {
+
+            if (!draggedNode) return;
+
+            if (!dragMoved) {
+                openDossier(org);
+            }
+
+            draggedNode = null;
+
+        });
+
+        group.addEventListener("pointercancel", () => {
+            draggedNode = null;
+        });
+
+        nodesGroup.appendChild(group);
+
+    });
+
+}
+
+
+// ==========================================
+// OPEN ORGANIZATION DOSSIER
+// ==========================================
+
+function openDossier(org) {
+
+    document.getElementById("dossierName").textContent =
+        org.name;
+
+    document.getElementById("dossierType").textContent =
+        org.type.toUpperCase();
+
+    document.getElementById("dossierOverview").textContent =
+        org.overview;
+
+    document.getElementById("dossierLeadership").textContent =
+        org.leadership;
+
+    document.getElementById("dossierHeadquarters").textContent =
+        org.headquarters;
+
+    document.getElementById("dossierRelationships").textContent =
+        org.relationships;
+
+    document.getElementById("dossierHistory").textContent =
+        org.history;
+
+    dossierOverlay.classList.add("active");
+
+}
+
+
+// ==========================================
+// SEARCH ORGANIZATIONS
+// ==========================================
+
+searchInput.addEventListener("input", () => {
+
+    const search = searchInput.value.toLowerCase().trim();
+
+    document.querySelectorAll(".network-node").forEach(node => {
+
+        const org = organizations.find(
+            item => item.id === node.dataset.id
+        );
+
+        const matches = org.name.toLowerCase().includes(search);
+
+        node.classList.toggle(
+            "search-match",
+            search !== "" && matches
+        );
+
+        node.classList.toggle(
+            "search-dim",
+            search !== "" && !matches
+        );
+
+    });
+
+});
+
+
+// ==========================================
+// ZOOM CONTROLS
+// ==========================================
+
+function updateZoom() {
+
+    const width = 1000 / zoom;
+    const height = 650 / zoom;
+
+    const x = (1000 - width) / 2;
+    const y = (650 - height) / 2;
+
+    svg.setAttribute(
+        "viewBox",
+        `${x} ${y} ${width} ${height}`
+    );
+
+}
+
+document.getElementById("zoomIn").addEventListener("click", () => {
+
+    zoom = Math.min(2, zoom + 0.2);
+    updateZoom();
+
+});
+
+document.getElementById("zoomOut").addEventListener("click", () => {
+
+    zoom = Math.max(0.7, zoom - 0.2);
+    updateZoom();
+
+});
+
+document.getElementById("zoomReset").addEventListener("click", () => {
+
+    zoom = 1;
+    updateZoom();
+
+});
+
+
+// ==========================================
+// INITIALIZE NETWORK
+// ==========================================
+
+renderLines();
+renderNodes();
+
+
+// ==========================================
+// DOSSIER CONTROLS
+// ==========================================
 
 const dossierOverlay = document.getElementById("dossierOverlay");
 
@@ -611,23 +985,24 @@ document.getElementById("closeDossier").addEventListener("click", () => {
     dossierOverlay.classList.remove("active");
 });
 
-// CLOSE WHEN CLICKING OUTSIDE THE DOSSIER
+dossierOverlay.addEventListener("click", event => {
 
-dossierOverlay.addEventListener("click", (event) => {
     if (event.target === dossierOverlay) {
         dossierOverlay.classList.remove("active");
     }
+
 });
 
-// CLOSE WITH ESCAPE KEY
+document.addEventListener("keydown", event => {
 
-document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
         dossierOverlay.classList.remove("active");
     }
+
 });
 
 </script>
+
 
 </body>
 </html>

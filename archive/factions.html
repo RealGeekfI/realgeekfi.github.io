@@ -150,6 +150,116 @@ header p {
     line-height: 1.8;
 }
 
+
+/* INTERACTIVE NETWORK */
+
+#networkSvg {
+    width: 100%;
+    height: 650px;
+    display: block;
+    touch-action: none;
+}
+
+#networkSvg line {
+    stroke-width: 2;
+    opacity: 0.7;
+}
+
+.relationship-alliance {
+    stroke: #c6a875;
+}
+
+.relationship-rivalry {
+    stroke: #a45d50;
+    stroke-dasharray: 8 6;
+}
+
+.relationship-affiliation {
+    stroke: #829a9a;
+    stroke-dasharray: 3 5;
+}
+
+.network-node {
+    cursor: grab;
+    touch-action: none;
+}
+
+.network-node:active {
+    cursor: grabbing;
+}
+
+.network-node circle {
+    fill: #302317;
+    stroke: #c6a875;
+    stroke-width: 2.5;
+    transition: fill 0.2s, stroke 0.2s;
+}
+
+.network-node text {
+    fill: #e5d5b5;
+    font-family: Georgia, serif;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.network-node .node-symbol {
+    font-size: 25px;
+}
+
+.network-node .node-label {
+    font-size: 14px;
+}
+
+.network-node:hover circle,
+.network-node.selected circle {
+    fill: #806747;
+    stroke: #fff0d0;
+    stroke-width: 4;
+}
+
+.network-node.search-match circle {
+    stroke: #fff0a5;
+    stroke-width: 5;
+}
+
+.network-node.search-dim {
+    opacity: 0.2;
+}
+
+.zoom-controls {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 5;
+    display: flex;
+    gap: 6px;
+}
+
+.zoom-controls button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #806747;
+    background: #211912;
+    color: #e5d5b5;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.zoom-controls button:hover {
+    background: #806747;
+}
+
+.network-panel {
+    position: relative;
+}
+
+@media (max-width: 600px) {
+    #networkSvg {
+        height: 480px;
+    }
+}
+
+
 /* NETWORK LEGEND */
 
 .network-legend {

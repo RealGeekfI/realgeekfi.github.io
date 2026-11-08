@@ -110,12 +110,94 @@
             font-size: 14px;
         }
 
-        input[type="range"] {
-            width: 100%;
-            accent-color: #c6a875;
-            cursor: pointer;
-            margin-bottom: 12px;
-        }
+        .timeline-control {
+    position: relative;
+    padding-top: 16px;
+    margin-bottom: 12px;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #c6a875;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-markers {
+    position: absolute;
+    left: 9px;
+    right: 9px;
+    top: 0;
+    height: 16px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.event-marker {
+    position: absolute;
+    top: 5px;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #e5d5b5;
+    background: #806747;
+    cursor: pointer;
+    padding: 0;
+    pointer-events: auto;
+}
+
+.event-marker:hover {
+    background: #e5d5b5;
+    transform: translateX(-50%) scale(1.3);
+}
+
+.event-marker span {
+    display: none;
+}
+
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.event-entry {
+    border: 1px solid #806747;
+    background: rgba(128, 103, 71, 0.08);
+    padding: 18px;
+}
+
+.event-entry summary {
+    cursor: pointer;
+    color: #e5d5b5;
+    font-size: 16px;
+}
+
+.event-entry p {
+    color: #bda982;
+    line-height: 1.7;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.event-category {
+    color: #c6a875;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.no-events {
+    text-align: center;
+    color: #a99370;
+    line-height: 1.8;
+    font-size: 14px;
+    padding: 15px;
+}
 
         .slider-labels {
             display: flex;
@@ -248,14 +330,21 @@
             THE ARCANUM REVOLUTION
         </div>
 
-        <input
-            type="range"
-            id="timelineSlider"
-            min="0"
-            max="213"
-            value="213"
-            step="1"
-        >
+       <div class="timeline-control">
+
+    <div id="timelineMarkers" class="timeline-markers"></div>
+
+    <input
+        type="range"
+        id="timelineSlider"
+        min="0"
+        max="213"
+        value="213"
+        step="1"
+        aria-label="Explore historical years"
+    >
+
+</div>
 
         <div class="slider-labels">
             <span>0 C.E.</span>
@@ -292,10 +381,11 @@
 
         <h2>Historical Records</h2>
 
-        <div class="empty-events" id="eventDisplay">
-            Select a year on the timeline to explore its
-            recorded historical events.
-        </div>
+       <div class="event-list" id="eventDisplay">
+    <p class="no-events">
+        Select a year to explore its historical records.
+    </p>
+</div>
 
     </section>
 
@@ -305,6 +395,7 @@
 
 </div>
 
+
 <script>
 
     const slider = document.getElementById("timelineSlider");
@@ -313,10 +404,130 @@
     const eraDisplay = document.getElementById("eraDisplay");
 
     const eventDisplay = document.getElementById("eventDisplay");
+    const timelineMarkers = document.getElementById("timelineMarkers");
 
     const creationCard = document.getElementById("creationCard");
     const ironCard = document.getElementById("ironCard");
     const arcanumCard = document.getElementById("arcanumCard");
+
+
+    // HISTORICAL EVENTS
+    // Add your actual historical events here as we establish them.
+
+    const historicalEvents = [
+
+        /*
+        Example format:
+
+        {
+            year: 15,
+            title: "Name of Historical Event",
+            category: "Political",
+            description: "A detailed account of what happened."
+        }
+
+        Multiple events can share the same year.
+        */
+
+    ];
+
+
+    // CREATE TIMELINE MARKERS
+
+    function renderMarkers() {
+
+        timelineMarkers.innerHTML = "";
+
+        const years = [...new Set(
+            historicalEvents.map(event => event.year)
+        )];
+
+        years.forEach(year => {
+
+            const marker = document.createElement("button");
+
+            marker.className = "event-marker";
+
+            marker.style.left = (year / 213 * 100) + "%";
+
+            marker.title = "View events from year " + year;
+
+            marker.setAttribute(
+                "aria-label",
+                "View historical events from year " + year
+            );
+
+            marker.addEventListener("click", () => {
+
+                slider.value = year;
+                updateTimeline();
+
+            });
+
+            timelineMarkers.appendChild(marker);
+
+        });
+
+    }
+
+
+    // DISPLAY EVENTS FOR SELECTED YEAR
+
+    function renderEvents(year, date) {
+
+        eventDisplay.innerHTML = "";
+
+        const events = historicalEvents.filter(
+            event => event.year === year
+        );
+
+        if (events.length === 0) {
+
+            const message = document.createElement("p");
+
+            message.className = "no-events";
+
+            message.textContent =
+                "No historical records have been added for " +
+                date + " yet.";
+
+            eventDisplay.appendChild(message);
+
+            return;
+
+        }
+
+        events.forEach(event => {
+
+            const entry = document.createElement("details");
+
+            entry.className = "event-entry";
+
+            const category = document.createElement("div");
+
+            category.className = "event-category";
+            category.textContent = event.category;
+
+            const heading = document.createElement("summary");
+
+            heading.textContent = event.title;
+
+            const description = document.createElement("p");
+
+            description.textContent = event.description;
+
+            entry.appendChild(category);
+            entry.appendChild(heading);
+            entry.appendChild(description);
+
+            eventDisplay.appendChild(entry);
+
+        });
+
+    }
+
+
+    // UPDATE THE TIMELINE
 
     function updateTimeline() {
 
@@ -355,16 +566,18 @@
         yearDisplay.textContent = date;
         eraDisplay.textContent = era;
 
-        eventDisplay.textContent =
-            "No historical records have been added for " + date + " yet.";
+        renderEvents(year, date);
 
     }
 
+
     slider.addEventListener("input", updateTimeline);
 
+    renderMarkers();
     updateTimeline();
 
 </script>
+
 
 </body>
 </html>

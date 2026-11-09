@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The World Encyclopedia | Gabe Carter</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Georgia, serif;
+    color: #e5d5b5;
+    background:
+        radial-gradient(ellipse at center, #493321 0%, #211912 75%);
+    padding: 30px 20px 60px;
+}
+
+header {
+    max-width: 1200px;
+    margin: 0 auto 35px;
+}
+
+.back-link {
+    display: inline-block;
+    color: #c6a875;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 35px;
+    letter-spacing: 1px;
+}
+
+.back-link:hover {
+    color: #fff0ce;
+}
+
+h1 {
+    text-align: center;
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: normal;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #bba782;
+    font-size: 15px;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.ornament {
+    width: 180px;
+    height: 1px;
+    background: #806747;
+    margin: 25px auto;
+}
+
+.introduction {
+    max-width: 700px;
+    margin: 0 auto 45px;
+    text-align: center;
+    color: #cbb994;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.shelf {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 35px 35px 25px;
+    background: linear-gradient(145deg, #49301e, #26180f);
+    border: 2px solid #806747;
+    border-radius: 5px;
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.45),
+        inset 0 0 25px rgba(0,0,0,0.3);
+}
+
+.shelf-label {
+    text-align: center;
+    color: #c6a875;
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+}
+
+.volume-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px 25px;
+}
+
+.volume {
+    position: relative;
+    min-width: 0;
+    min-height: 260px;
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    perspective: 800px;
+    padding: 0 5px;
+}
+
+.book {
+    position: relative;
+    width: 100%;
+    max-width: 230px;
+    height: 245px;
+    margin: 0 auto;
+    border: 3px solid rgba(0,0,0,0.3);
+    border-radius: 4px 9px 9px 4px;
+    background: var(--cover);
+    box-shadow:
+        7px 8px 12px rgba(0,0,0,0.5),
+        inset 7px 0 10px rgba(0,0,0,0.3),
+        inset -5px 0 8px rgba(255,255,255,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.book::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 13px;
+    width: 3px;
+    background: rgba(220,190,130,0.35);
+}
+
+.book::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 21px;
+    right: 10px;
+    border: 1px solid rgba(220,190,130,0.45);
+    pointer-events: none;
+}
+
+.volume:hover .book,
+.volume:focus-visible .book {
+    transform: translateY(-12px) rotateY(-5deg);
+    box-shadow:
+        12px 20px 20px rgba(0,0,0,0.55),
+        inset 7px 0 10px rgba(0,0,0,0.3);
+}
+
+.cover-content {
+    position: absolute;
+    inset: 25px 25px 20px 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid rgba(220,190,130,0.35);
+    padding: 12px;
+    z-index: 1;
+}
+
+.volume-number {
+    color: #d8bd83;
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+}
+
+.volume-symbol {
+    font-size: 36px;
+    color: #d8bd83;
+    margin-bottom: 18px;
+}
+
+.volume-title {
+    color: #f0dfbd;
+    font-size: 18px;
+    line-height: 1.35;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cover-divider {
+    width: 55px;
+    height: 1px;
+    background: #c6a875;
+    margin: 15px auto;
+}
+
+.cover-subtitle {
+    color: #cbb994;
+    font-size: 11px;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.shelf-board {
+    height: 17px;
+    margin: 0 -20px;
+    background: linear-gradient(to bottom, #806044, #382315);
+    border: 1px solid #9a7950;
+    box-shadow: 0 12px 15px rgba(0,0,0,0.4);
+}
+
+.shelf-caption {
+    text-align: center;
+    color: #a88d65;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-top: 35px;
+}
+
+/* VOLUME PREVIEW */
+
+.preview-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: rgba(0,0,0,0.78);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.preview-overlay.active {
+    display: flex;
+}
+
+.preview {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    padding: 45px 35px;
+    text-align: center;
+    background: linear-gradient(145deg, #3d2b1d, #211912);
+    border: 2px solid #806747;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.6);
+}
+
+.preview-number {
+    color: #c6a875;
+    letter-spacing: 3px;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.preview h2 {
+    font-size: 27px;
+    font-weight: normal;
+    margin-bottom: 18px;
+}
+
+.preview-description {
+    color: #cbb994;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.preview-status {
+    color: #c6a875;
+    font-size: 12px;
+    font-style: italic;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+.close-button {
+    padding: 10px 25px;
+    color: #e5d5b5;
+    background: #493321;
+    border: 1px solid #806747;
+    font-family: Georgia, serif;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    background: #63482d;
+}
+
+@media (max-width: 750px) {
+    .volume-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 12px;
+    }
+
+    .shelf {
+        padding: 25px 15px;
+    }
+
+    .book {
+        height: 220px;
+    }
+
+    .volume-title {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 420px) {
+    .volume-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .book {
+        max-width: 220px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="../archive.html" class="back-link">
+        ← RETURN TO THE ARCHIVE
+    </a>
+
+    <h1>THE WORLD ENCYCLOPEDIA</h1>
+    <div class="ornament"></div>
+
+    <p class="subtitle">
+        A Collection of Knowledge, Discovery, and Understanding
+    </p>
+</header>
+
+<main>
+    <p class="introduction">
+        Within these volumes lies a collection of knowledge concerning
+        the world, its inhabitants, its natural wonders, and the
+        discoveries that have shaped civilization.
+        Select a volume to begin exploring.
+    </p>
+
+    <section class="shelf">
+
+        <div class="shelf-label">
+            THE ENCYCLOPEDIA COLLECTION
+        </div>
+
+        <div class="volume-grid">
+
+            <button class="volume"
+                data-number="VOLUME I"
+                data-title="The Natural World"
+                data-description="An examination of the natural world, including flora, fauna, ecosystems, and the many environments found across the realm."
+                style="--cover:#42513b;">
+
+                <div class="book">
+                    <div class="cover-content">
+                        <div class="volume-number">VOLUME I</div>
+                        <div class="volume-symbol">❧</div>
+                        <div class="volume-title">The Natural World</div>
+                        <div class="cover-divider"></div>
+                        <div class="cover-subtitle">Life and Nature</div>
+                    </div>
+                </div>
+            </button>
+
+            <button class="volume"
+                data-number="VOLUME II"
+                data-title="Peoples of the Realm"
+                data-description="A study of the peoples and cultures of the realm, their customs, languages, traditions, and societies."
+                style="--cover:#76513c;">
+
+                <div class="book">
+                    <div class="cover-content">
+                        <div class="volume-number">VOLUME II</div>
+                        <div class="volume-symbol">⚜</div>
+                        <div class="volume-title">Peoples of the Realm</div>
+                        <div class="cover-divider"></div>
+                        <div class="cover-subtitle">Culture and Civilization</div>
+                    </div>
+                </div>
+            </button>
+
+            <button class="volume"
+                data-number="VOLUME III"
+                data-title="The Age of Invention"
+                data-description="A collection concerning science, engineering, machinery, inventions, and technological advancement."
+                style="--cover:#55465f;">
+
+                <div class="book">
+                    <div class="cover-content">
+                        <div class="volume-number">VOLUME III</div>
+                        <div class="volume-symbol">⚙</div>
+                        <div class="volume-title">The Age of Invention</div>
+                        <div class="cover-divider"></div>
+                        <div class="cover-subtitle">Science and Technology</div>
+                    </div>
+                </div>
+            </button>
+
+            <button class="volume"
+                data-number="VOLUME IV"
+                data-title="The Arcane Compendium"
+                data-description="An exploration of magic, arcane theory, magical phenomena, artifacts, and the mysteries of the arcane."
+                style="--cover:#493d70;">
+
+                <div class="book">
+                    <div class="cover-content">
+                        <div class="volume-number">VOLUME IV</div>
+                        <div class="volume-symbol">✧</div>
+                        <div class="volume-title">The Arcane Compendium</div>
+                        <div class="cover-divider"></div>
+                        <div class="cover-subtitle">Magic and the Arcane</div>
+                    </div>
+                </div>
+            </button>
+
+            <button class="volume"
+                data-number="VOLUME V"
+                data-title="The Atlas of Creation"
+                data-description="A geographical reference covering continents, regions, landscapes, climates, and notable locations."
+                style="--cover:#52616a;">
+
+                <div class="book">
+                    <div class="cover-content">
+                        <div class="volume-number">VOLUME V</div>
+                        <div class="volume-symbol">✥</div>
+                        <div class="volume-title">The Atlas of Creation</div>
+                        <div class="cover-divider"></div>
+                        <div class="cover-subtitle">Geography and the Realm</div>
+                    </div>
+                </div>
+            </button>
+
+            <button class="volume"
+                data-number="VOLUME VI"
+                data-title="The Bestiary"
+                data-description="A field guide to the creatures and monsters of the world, their classifications, behaviors, and distinguishing characteristics."
+                style="--cover:#713f39;">
+
+                <div class="book">
+                    <div class="cover-content">
+                        <div class="volume-number">VOLUME VI</div>
+                        <div class="volume-symbol">♜</div>
+                        <div class="volume-title">The Bestiary</div>
+                        <div class="cover-divider"></div>
+                        <div class="cover-subtitle">Creatures and Beasts</div>
+                    </div>
+                </div>
+            </button>
+
+        </div>
+
+        <div class="shelf-board"></div>
+
+        <div class="shelf-caption">
+            SIX VOLUMES · AN EVER-GROWING COLLECTION
+        </div>
+
+    </section>
+</main>
+
+<div class="preview-overlay" id="previewOverlay">
+    <div class="preview">
+        <div class="preview-number" id="previewNumber"></div>
+        <h2 id="previewTitle"></h2>
+        <div class="ornament"></div>
+        <p class="preview-description" id="previewDescription"></p>
+        <p class="preview-status">
+            THIS VOLUME HAS YET TO BE CATALOGUED
+        </p>
+        <button class="close-button" id="closePreview">
+            Return to Bookshelf
+        </button>
+    </div>
+</div>
+
+<script>
+const volumes = document.querySelectorAll(".volume");
+const overlay = document.getElementById("previewOverlay");
+
+volumes.forEach(volume => {
+    volume.addEventListener("click", () => {
+        document.getElementById("previewNumber").textContent =
+            volume.dataset.number;
+
+        document.getElementById("previewTitle").textContent =
+            volume.dataset.title;
+
+        document.getElementById("previewDescription").textContent =
+            volume.dataset.description;
+
+        overlay.classList.add("active");
+    });
+});
+
+document.getElementById("closePreview").addEventListener("click", () => {
+    overlay.classList.remove("active");
+});
+
+overlay.addEventListener("click", event => {
+    if (event.target === overlay) {
+        overlay.classList.remove("active");
+    }
+});
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        overlay.classList.remove("active");
+    }
+});
+</script>
+
+</body>
+</html>

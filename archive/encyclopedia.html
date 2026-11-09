@@ -354,6 +354,262 @@ h1 {
         max-width: 220px;
     }
 }
+
+    
+/* =================================
+   OPEN ENCYCLOPEDIA READER
+================================= */
+
+.preview-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    background: rgba(10, 7, 4, 0.88);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.preview-overlay.active {
+    display: flex;
+}
+
+.book-reader {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    padding: 55px 25px 25px;
+    background: linear-gradient(145deg, #493321, #211912);
+    border: 2px solid #806747;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.75);
+}
+
+.reader-close {
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    padding: 9px 15px;
+    background: #382719;
+    border: 1px solid #806747;
+    color: #e5d5b5;
+    font-family: Georgia, serif;
+    cursor: pointer;
+}
+
+.reader-close:hover {
+    background: #63482d;
+}
+
+.reader-heading {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.reader-heading span {
+    color: #c6a875;
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+.reader-heading h2 {
+    color: #e5d5b5;
+    font-weight: normal;
+    font-size: 25px;
+    margin-top: 8px;
+}
+
+.book-spread {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.55);
+}
+
+.book-page {
+    position: relative;
+    min-height: 480px;
+    padding: 45px 38px;
+    color: #443323;
+    background:
+        radial-gradient(ellipse at center, #f2e5c9 0%, #dfcba5 100%);
+    border: 1px solid #b49a6e;
+    overflow: hidden;
+}
+
+.left-page {
+    border-radius: 5px 0 0 5px;
+    box-shadow: inset -12px 0 18px rgba(80,50,20,0.12);
+}
+
+.right-page {
+    border-radius: 0 5px 5px 0;
+    box-shadow: inset 12px 0 18px rgba(80,50,20,0.12);
+}
+
+.left-page::before,
+.right-page::before {
+    content: "";
+    position: absolute;
+    inset: 15px;
+    border: 1px solid rgba(128,103,71,0.4);
+    pointer-events: none;
+}
+
+.book-page h3 {
+    position: relative;
+    color: #65492d;
+    text-align: center;
+    font-size: 23px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.page-ornament {
+    text-align: center;
+    font-size: 30px;
+    color: #9c794b;
+    margin: 20px 0;
+}
+
+.page-content {
+    position: relative;
+    z-index: 1;
+    line-height: 1.9;
+    font-size: 15px;
+}
+
+.page-content p {
+    margin-bottom: 14px;
+}
+
+.page-number {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 12px;
+    color: #8c7351;
+}
+
+.reader-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.reader-navigation button {
+    padding: 10px 20px;
+    background: #493321;
+    border: 1px solid #806747;
+    color: #e5d5b5;
+    font-family: Georgia, serif;
+    cursor: pointer;
+}
+
+.reader-navigation button:hover:not(:disabled) {
+    background: #63482d;
+}
+
+.reader-navigation button:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+#pageCounter {
+    color: #c6a875;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+/* PAGE TURN ANIMATION */
+
+@keyframes turnForward {
+    0% {
+        transform: perspective(1200px) rotateY(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: perspective(1200px) rotateY(-12deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: perspective(1200px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes turnBackward {
+    0% {
+        transform: perspective(1200px) rotateY(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: perspective(1200px) rotateY(12deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: perspective(1200px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+.book-spread.turn-forward .right-page {
+    animation: turnForward 0.4s ease;
+}
+
+.book-spread.turn-backward .left-page {
+    animation: turnBackward 0.4s ease;
+}
+
+/* MOBILE READER */
+
+@media (max-width: 700px) {
+    .preview-overlay {
+        padding: 10px;
+    }
+
+    .book-reader {
+        padding: 55px 12px 20px;
+    }
+
+    .book-spread {
+        grid-template-columns: 1fr;
+    }
+
+    .book-page {
+        min-height: 310px;
+        padding: 35px 28px;
+    }
+
+    .left-page {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .right-page {
+        border-radius: 0 0 5px 5px;
+    }
+
+    .reader-navigation {
+        gap: 10px;
+    }
+
+    .reader-navigation button {
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+
+    #pageCounter {
+        font-size: 11px;
+    }
+}
+
 </style>
 </head>
 

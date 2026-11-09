@@ -112,15 +112,22 @@ h1 {
     padding: 0 5px;
 }
 
+
 .book {
     position: relative;
     width: 100%;
     max-width: 230px;
     height: 245px;
     margin: 0 auto;
-    border: 3px solid rgba(0,0,0,0.3);
+    border: 3px solid rgba(0,0,0,0.45);
     border-radius: 4px 9px 9px 4px;
-    background: var(--cover);
+    background: linear-gradient(
+        100deg,
+        rgba(0,0,0,0.4),
+        var(--cover) 18%,
+        var(--cover) 85%,
+        rgba(0,0,0,0.25)
+    );
     box-shadow:
         7px 8px 12px rgba(0,0,0,0.5),
         inset 7px 0 10px rgba(0,0,0,0.3),
@@ -129,25 +136,54 @@ h1 {
     overflow: hidden;
 }
 
+/* Decorative spine */
 .book::before {
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
     left: 13px;
-    width: 3px;
-    background: rgba(220,190,130,0.35);
+    width: 8px;
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.4),
+        rgba(220,190,130,0.35),
+        rgba(0,0,0,0.25)
+    );
+    border-left: 1px solid rgba(220,190,130,0.3);
+    border-right: 1px solid rgba(220,190,130,0.3);
 }
 
+/* Gold embossed border */
 .book::after {
     content: "";
     position: absolute;
     top: 10px;
     bottom: 10px;
-    left: 21px;
+    left: 27px;
     right: 10px;
-    border: 1px solid rgba(220,190,130,0.45);
+    border: 2px double rgba(220,190,130,0.55);
     pointer-events: none;
+}
+
+/* Cover lettering */
+.cover-content {
+    text-shadow: 1px 2px 3px rgba(0,0,0,0.65);
+}
+
+.volume-number,
+.volume-symbol,
+.volume-title {
+    color: #e4c987;
+}
+
+.cover-divider {
+    background: linear-gradient(
+        to right,
+        transparent,
+        #d9b66f,
+        transparent
+    );
 }
 
 .volume:hover .book,

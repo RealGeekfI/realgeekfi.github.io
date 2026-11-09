@@ -808,22 +808,176 @@ h1 {
 </div>
 
 <script>
+
 const volumes = document.querySelectorAll(".volume");
 const overlay = document.getElementById("previewOverlay");
+const spread = document.querySelector(".book-spread");
+
+const leftContent = document.getElementById("leftPageContent");
+const rightContent = document.getElementById("rightPageContent");
+
+const leftNumber = document.getElementById("leftPageNumber");
+const rightNumber = document.getElementById("rightPageNumber");
+
+const pageCounter = document.getElementById("pageCounter");
+
+let currentPage = 0;
+let currentVolume = null;
+
+const pagesPerVolume = {
+    "The Natural World": [
+        {
+            title: "Welcome",
+            text: "This volume has been opened for the first time. Its pages await the knowledge that will one day be recorded within."
+        },
+        {
+            title: "Table of Contents",
+            text: "Chapter I — Introduction\nChapter II — Classification\nChapter III — Further Studies"
+        },
+        {
+            title: "Chapter I",
+            text: "Introduction\n\nThis chapter will introduce the subject of this volume."
+        },
+        {
+            title: "Chapter II",
+            text: "Classification\n\nThis chapter will organize the knowledge contained within this volume."
+        },
+        {
+            title: "Chapter III",
+            text: "Further Studies\n\nAdditional discoveries and observations will be recorded here."
+        },
+        {
+            title: "Notes",
+            text: "Additional notes and references will be recorded here."
+        }
+    ]
+};
+
+// Build temporary placeholder pages for the other volumes.
+function getPages(title) {
+    if (pagesPerVolume[title]) {
+        return pagesPerVolume[title];
+    }
+
+    return [
+        {
+            title: "Welcome",
+            text: "This volume has been opened for the first time. Its pages await the knowledge that will one day be recorded within."
+        },
+        {
+            title: "Table of Contents",
+            text: "Chapter I — Introduction\nChapter II — Classification\nChapter III — Further Studies"
+        },
+        {
+            title: "Chapter I",
+            text: "Introduction\n\nThis chapter will introduce the subject of this volume."
+        },
+        {
+            title: "Chapter II",
+            text: "Classification\n\nThis chapter will organize the knowledge contained within this volume."
+        },
+        {
+            title: "Chapter III",
+            text: "Further Studies\n\nAdditional discoveries and observations will be recorded here."
+        },
+        {
+            title: "Notes",
+            text: "Additional notes and references will be recorded here."
+        }
+    ];
+}
+
+function renderPages() {
+    const pages = getPages(currentVolume.title);
+
+    const left = pages[currentPage];
+    const right = pages[currentPage + 1];
+
+    leftContent.innerHTML = `
+        <h3>${left.title}</h3>
+        <div class="page-ornament">❧</div>
+        <p>${left.text.replace(/\n/g, "<br>")}</p>
+    `;
+
+    if (right) {
+        rightContent.innerHTML = `
+            <h3>${right.title}</h3>
+            <div class="page-ornament">✧</div>
+            <p>${right.text.replace(/\n/g, "<br>")}</p>
+        `;
+    } else {
+        rightContent.innerHTML = `
+            <h3>The End</h3>
+            <div class="page-ornament">❧</div>
+            <p>You have reached the end of this volume.</p>
+        `;
+    }
+
+    leftNumber.textContent = currentPage + 1;
+    rightNumber.textContent = currentPage + 2;
+
+    pageCounter.textContent =
+        `Pages ${currentPage + 1}–${currentPage + 2}`;
+
+    document.getElementById("previousPage").disabled =
+        currentPage === 0;
+
+    document.getElementById("nextPage").disabled =
+        currentPage >= pages.length - 2;
+}
+
+function openVolume(volume) {
+    currentVolume = {
+        title: volume.dataset.title,
+        number: volume.dataset.number
+    };
+
+    currentPage = 0;
+
+    document.getElementById("readerVolume").textContent =
+        currentVolume.number;
+
+    document.getElementById("readerTitle").textContent =
+        currentVolume.title;
+
+    renderPages();
+    overlay.classList.add("active");
+}
 
 volumes.forEach(volume => {
     volume.addEventListener("click", () => {
-        document.getElementById("previewNumber").textContent =
-            volume.dataset.number;
-
-        document.getElementById("previewTitle").textContent =
-            volume.dataset.title;
-
-        document.getElementById("previewDescription").textContent =
-            volume.dataset.description;
-
-        overlay.classList.add("active");
+        openVolume(volume);
     });
+});
+
+function turnPage(direction) {
+    const pages = getPages(currentVolume.title);
+
+    const nextPage = currentPage + direction * 2;
+
+    if (nextPage < 0 || nextPage >= pages.length) {
+        return;
+    }
+
+    spread.classList.remove("turn-forward", "turn-backward");
+
+    void spread.offsetWidth;
+
+    spread.classList.add(
+        direction > 0 ? "turn-forward" : "turn-backward"
+    );
+
+    currentPage = nextPage;
+
+    setTimeout(renderPages, 180);
+}
+
+document.getElementById("nextPage").addEventListener("click", () => {
+    turnPage(1);
+});
+
+document.getElementById("previousPage").addEventListener("click", () => {
+    turnPage(-1);
 });
 
 document.getElementById("closePreview").addEventListener("click", () => {
@@ -837,11 +991,20 @@ overlay.addEventListener("click", event => {
 });
 
 document.addEventListener("keydown", event => {
+    if (!overlay.classList.contains("active")) return;
+
     if (event.key === "Escape") {
         overlay.classList.remove("active");
     }
+
+    if (event.key === "ArrowRight") {
+        turnPage(1);
+    }
+
+    if (event.key === "ArrowLeft") {
+        turnPage(-1);
+    }
 });
-</script>
 
 </body>
 </html>

@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Character Codex | The Archive</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(ellipse at top, #493523 0%, #211912 75%);
+    color: #e5d5b5;
+    font-family: Georgia, serif;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 45px 20px 30px;
+    border-bottom: 1px solid #806747;
+}
+
+header h1 {
+    font-size: clamp(30px, 5vw, 46px);
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+}
+
+header p {
+    color: #bda982;
+    font-size: 13px;
+    letter-spacing: 3px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 24px;
+    color: #c6a875;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    color: #fff0d0;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+    padding: 30px 25px 65px;
+}
+
+.introduction {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 30px;
+    color: #bda982;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* SEARCH */
+
+.search-box {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 25px;
+    background: #211912;
+    border: 1px solid #806747;
+    color: #e5d5b5;
+    font-family: Georgia, serif;
+    font-size: 14px;
+}
+
+.search-box::placeholder {
+    color: #a99370;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: #c6a875;
+}
+
+/* MAIN LAYOUT */
+
+.codex-layout {
+    display: grid;
+    grid-template-columns: 310px minmax(0, 1fr);
+    gap: 25px;
+    align-items: stretch;
+}
+
+/* CHARACTER ROSTER */
+
+.roster {
+    border: 1px solid #806747;
+    background: rgba(20, 13, 8, 0.5);
+    padding: 20px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #806747;
+    margin-bottom: 16px;
+}
+
+.character-list {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    max-height: 680px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.character-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.character-list::-webkit-scrollbar-track {
+    background: #211912;
+}
+
+.character-list::-webkit-scrollbar-thumb {
+    background: #806747;
+}
+
+.character-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 10px;
+    background: rgba(73, 53, 35, 0.4);
+    border: 1px solid #604a31;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.character-card:hover,
+.character-card.active {
+    background: #493523;
+    border-color: #c6a875;
+}
+
+.character-card.active {
+    box-shadow: inset 3px 0 #c6a875;
+}
+
+.character-thumb {
+    width: 65px;
+    height: 65px;
+    flex-shrink: 0;
+    background: #302317;
+    border: 1px solid #806747;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c6a875;
+    font-size: 27px;
+}
+
+.character-card h3 {
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 6px;
+}
+
+.character-card p {
+    color: #bda982;
+    font-size: 11px;
+}
+
+.no-results {
+    color: #bda982;
+    font-size: 13px;
+    text-align: center;
+    padding: 20px 5px;
+}
+
+/* CHARACTER SHOWCASE */
+
+.showcase {
+    border: 1px solid #806747;
+    background: rgba(20, 13, 8, 0.5);
+    min-height: 680px;
+    padding: 25px;
+}
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.85fr) minmax(0, 1.15fr);
+    gap: 28px;
+}
+
+.character-art {
+    min-height: 480px;
+    background: #302317;
+    border: 1px solid #806747;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #c6a875;
+    text-align: center;
+    padding: 20px;
+}
+
+.character-art .art-symbol {
+    font-size: 65px;
+    margin-bottom: 15px;
+}
+
+.character-art p {
+    font-size: 12px;
+    color: #bda982;
+    line-height: 1.7;
+}
+
+.character-info {
+    padding: 10px 0;
+}
+
+.character-name {
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: normal;
+    letter-spacing: 1px;
+    margin-bottom: 9px;
+}
+
+.character-title {
+    color: #c6a875;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+}
+
+.character-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.meta-item {
+    border: 1px solid #604a31;
+    background: rgba(73, 53, 35, 0.3);
+    padding: 12px;
+}
+
+.meta-item span {
+    display: block;
+    color: #a99370;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.meta-item strong {
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.profile-section {
+    padding: 17px 0;
+    border-top: 1px solid rgba(128, 103, 71, 0.5);
+}
+
+.profile-section h3 {
+    color: #c6a875;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.profile-section p {
+    color: #bda982;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.profile-placeholder {
+    color: #bda982;
+    text-align: center;
+    padding: 50px 20px;
+    line-height: 1.8;
+}
+
+/* FOOTER */
+
+footer {
+    border-top: 1px solid #806747;
+    text-align: center;
+    padding: 25px;
+    color: #a99370;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+    .codex-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .character-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-height: 330px;
+    }
+
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .character-art {
+        min-height: 400px;
+    }
+
+    .showcase {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 22px 12px 45px;
+    }
+
+    .roster,
+    .showcase {
+        padding: 15px;
+    }
+
+    .character-list {
+        gap: 8px;
+    }
+
+    .character-card {
+        gap: 8px;
+        padding: 7px;
+    }
+
+    .character-thumb {
+        width: 48px;
+        height: 55px;
+        font-size: 20px;
+    }
+
+    .character-card h3 {
+        font-size: 11px;
+    }
+
+    .character-card p {
+        font-size: 9px;
+    }
+
+    .character-art {
+        min-height: 330px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>THE CHARACTER CODEX</h1>
+    <p>A RECORD OF THE PEOPLE OF THE REALM</p>
+
+    <a href="../archive.html" class="back-link">
+        ← Return to The Archive
+    </a>
+</header>
+
+<main class="container">
+
+    <div class="introduction">
+        Discover the individuals who have shaped the history
+        of the realm. Browse their identities, affiliations,
+        relationships, and personal histories.
+    </div>
+
+    <input
+        type="text"
+        class="search-box"
+        id="characterSearch"
+        placeholder="Search characters by name..."
+        aria-label="Search characters"
+    >
+
+    <div class="codex-layout">
+
+        <!-- CHARACTER ROSTER -->
+
+        <aside class="roster">
+
+            <h2 class="section-title">CHARACTER ROSTER</h2>
+
+            <div class="character-list" id="characterList">
+
+                <!-- Characters will be generated here -->
+
+            </div>
+
+        </aside>
+
+
+        <!-- CHARACTER SHOWCASE -->
+
+        <section class="showcase" id="characterShowcase">
+
+            <div class="profile-placeholder">
+                <h2>Select a Character</h2>
+
+                <p>
+                    Choose an individual from the roster
+                    to examine their official character record.
+                </p>
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+<footer>
+    THE ARCHIVE · A RECORD OF THE KNOWN WORLD
+</footer>
+
+
+<script>
+
+// ==========================================
+// TEMPORARY SAMPLE CHARACTERS
+// ==========================================
+
+const characters = [
+
+    {
+        id: "character1",
+        name: "Character One",
+        title: "THE WANDERER",
+        symbol: "♜",
+        race: "Human",
+        occupation: "Adventurer",
+        affiliation: "Independent",
+        status: "Living",
+        biography: "A temporary character profile used to test the Character Codex.",
+        relationships: "No recorded relationships.",
+        history: "Historical records have not yet been added."
+    },
+
+    {
+        id: "character2",
+        name: "Character Two",
+        title: "THE SCHOLAR",
+        symbol: "✧",
+        race: "Elf",
+        occupation: "Scholar",
+        affiliation: "Unknown",
+        status: "Living",
+        biography: "A temporary character profile used to test the Character Codex.",
+        relationships: "No recorded relationships.",
+        history: "Historical records have not yet been added."
+    },
+
+    {
+        id: "character3",
+        name: "Character Three",
+        title: "THE SENTINEL",
+        symbol: "⚔",
+        race: "Dwarf",
+        occupation: "Soldier",
+        affiliation: "Independent",
+        status: "Living",
+        biography: "A temporary character profile used to test the Character Codex.",
+        relationships: "No recorded relationships.",
+        history: "Historical records have not yet been added."
+    },
+
+    {
+        id: "character4",
+        name: "Character Four",
+        title: "THE MYSTIC",
+        symbol: "✥",
+        race: "Tiefling",
+        occupation: "Mage",
+        affiliation: "Unknown",
+        status: "Missing",
+        biography: "A temporary character profile used to test the Character Codex.",
+        relationships: "No recorded relationships.",
+        history: "Historical records have not yet been added."
+    },
+
+    {
+        id: "character5",
+        name: "Character Five",
+        title: "THE COMMANDER",
+        symbol: "♜",
+        race: "Half-Elf",
+        occupation: "Commander",
+        affiliation: "Unknown",
+        status: "Deceased",
+        biography: "A temporary character profile used to test the Character Codex.",
+        relationships: "No recorded relationships.",
+        history: "Historical records have not yet been added."
+    },
+
+    {
+        id: "character6",
+        name: "Character Six",
+        title: "THE OUTCAST",
+        symbol: "✦",
+        race: "Genasi",
+        occupation: "Unknown",
+        affiliation: "Independent",
+        status: "Unknown",
+        biography: "A temporary character profile used to test the Character Codex.",
+        relationships: "No recorded relationships.",
+        history: "Historical records have not yet been added."
+    }
+
+];
+
+
+// ==========================================
+// ELEMENTS
+// ==========================================
+
+const characterList = document.getElementById("characterList");
+const characterShowcase = document.getElementById("characterShowcase");
+const characterSearch = document.getElementById("characterSearch");
+
+let selectedCharacter = null;
+
+
+// ==========================================
+// DISPLAY CHARACTER PROFILE
+// ==========================================
+
+function selectCharacter(character) {
+
+    selectedCharacter = character.id;
+
+    renderCharacters(characterSearch.value);
+
+    characterShowcase.innerHTML = `
+
+        <div class="profile-layout">
+
+            <div class="character-art">
+
+                <div class="art-symbol">${character.symbol}</div>
+
+                <p>FULL CHARACTER ARTWORK</p>
+
+            </div>
+
+            <div class="character-info">
+
+                <h2 class="character-name">${character.name}</h2>
+
+                <p class="character-title">${character.title}</p>
+
+                <div class="character-meta">
+
+                    <div class="meta-item">
+                        <span>Race</span>
+                        <strong>${character.race}</strong>
+                    </div>
+
+                    <div class="meta-item">
+                        <span>Occupation</span>
+                        <strong>${character.occupation}</strong>
+                    </div>
+
+                    <div class="meta-item">
+                        <span>Affiliation</span>
+                        <strong>${character.affiliation}</strong>
+                    </div>
+
+                    <div class="meta-item">
+                        <span>Status</span>
+                        <strong>${character.status}</strong>
+                    </div>
+
+                </div>
+
+                <div class="profile-section">
+
+                    <h3>Biography</h3>
+
+                    <p>${character.biography}</p>
+
+                </div>
+
+                <div class="profile-section">
+
+                    <h3>Relationships</h3>
+
+                    <p>${character.relationships}</p>
+
+                </div>
+
+                <div class="profile-section">
+
+                    <h3>History & Appearances</h3>
+
+                    <p>${character.history}</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+// ==========================================
+// DISPLAY CHARACTER ROSTER
+// ==========================================
+
+function renderCharacters(search = "") {
+
+    characterList.innerHTML = "";
+
+    const filteredCharacters = characters.filter(character =>
+        character.name.toLowerCase().includes(search.toLowerCase())
+    );
+
+    if (filteredCharacters.length === 0) {
+
+        characterList.innerHTML =
+            '<p class="no-results">No characters found.</p>';
+
+        return;
+
+    }
+
+    filteredCharacters.forEach(character => {
+
+        const card = document.createElement("div");
+
+        card.className = "character-card";
+
+        if (character.id === selectedCharacter) {
+            card.classList.add("active");
+        }
+
+        card.innerHTML = `
+
+            <div class="character-thumb">
+                ${character.symbol}
+            </div>
+
+            <div>
+                <h3>${character.name}</h3>
+                <p>${character.title}</p>
+            </div>
+
+        `;
+
+        card.addEventListener("mouseenter", () => {
+            selectCharacter(character);
+        });
+
+        card.addEventListener("click", () => {
+            selectCharacter(character);
+        });
+
+        characterList.appendChild(card);
+
+    });
+
+}
+
+
+// ==========================================
+// SEARCH
+// ==========================================
+
+characterSearch.addEventListener("input", () => {
+
+    renderCharacters(characterSearch.value);
+
+});
+
+
+// ==========================================
+// INITIALIZE
+// ==========================================
+
+renderCharacters();
+
+</script>
+
+</body>
+</html>

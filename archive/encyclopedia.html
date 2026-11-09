@@ -501,18 +501,53 @@ h1 {
     </section>
 </main>
 
+
 <div class="preview-overlay" id="previewOverlay">
-    <div class="preview">
-        <div class="preview-number" id="previewNumber"></div>
-        <h2 id="previewTitle"></h2>
-        <div class="ornament"></div>
-        <p class="preview-description" id="previewDescription"></p>
-        <p class="preview-status">
-            THIS VOLUME HAS YET TO BE CATALOGUED
-        </p>
-        <button class="close-button" id="closePreview">
-            Return to Bookshelf
+    <div class="book-reader" id="bookReader">
+
+        <button class="reader-close" id="closePreview">
+            ✕ Close Volume
         </button>
+
+        <div class="reader-heading">
+            <span id="readerVolume">VOLUME I</span>
+            <h2 id="readerTitle">The Natural World</h2>
+        </div>
+
+        <div class="book-spread">
+
+            <div class="book-page left-page" id="leftPage">
+                <div class="page-number" id="leftPageNumber">1</div>
+                <div class="page-content" id="leftPageContent">
+                    <h3>Welcome</h3>
+                    <div class="page-ornament">❧</div>
+                    <p>
+                        This volume has been opened for the first time.
+                        Its pages await the knowledge that will one day
+                        be recorded within.
+                    </p>
+                </div>
+            </div>
+
+            <div class="book-page right-page" id="rightPage">
+                <div class="page-number" id="rightPageNumber">2</div>
+                <div class="page-content" id="rightPageContent">
+                    <h3>Table of Contents</h3>
+                    <div class="page-ornament">✧</div>
+                    <p>Chapter I — Introduction</p>
+                    <p>Chapter II — Classification</p>
+                    <p>Chapter III — Further Studies</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="reader-navigation">
+            <button id="previousPage">← Previous</button>
+            <span id="pageCounter">Pages 1–2</span>
+            <button id="nextPage">Next →</button>
+        </div>
+
     </div>
 </div>
 
